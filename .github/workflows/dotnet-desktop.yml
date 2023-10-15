@@ -40,7 +40,9 @@ name: .NET Core Desktop
 
 on:
   push:
-    branches: [ "master" ]
+    branches:    
+      - '**release**'  #filters for all branches named with 'release'
+      - '**Release**'
   pull_request:
     branches: [ "master" ]
 
