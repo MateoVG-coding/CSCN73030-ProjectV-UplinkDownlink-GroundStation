@@ -44,6 +44,7 @@ namespace Unit_Tests
             //Act
             for (int i = 0; i < 10; i++)
                 sender.SendTransmission(ref testJsonString);
+            Thread.Sleep(200);
 
             //Assert
             Assert.AreEqual(true, sender.transmissionStatus);
