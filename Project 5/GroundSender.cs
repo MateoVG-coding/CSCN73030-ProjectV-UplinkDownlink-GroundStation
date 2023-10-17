@@ -12,13 +12,16 @@ public class GroundSender
     private Thread transmissionManager;
     Mutex bufferLock;
     public bool transmissionStatus { get; set; }
+    String targetURL;
+    
 
-    public GroundSender()
+    public GroundSender(String target)
     {
         bufferLock = new Mutex();
         transmissionStatus = false;
         client = new HttpClient();
         transmissionQueue = new Queue<String>();
+        targetURL = target;
         transmissionManager = new Thread(delegate ()
         {
             StartSendThread();
@@ -49,7 +52,7 @@ public class GroundSender
 #if DEBUG
             response = GroundSender_Stubs.HttpRequest_Stub();
 #else
-            response = await client.PostAsync("a url", content);
+            response = await client.PostAsync(targetURL, content);
 #endif
 
 
