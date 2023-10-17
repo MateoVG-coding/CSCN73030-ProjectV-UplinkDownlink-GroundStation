@@ -91,11 +91,6 @@ public class GroundSender
         
         if(!transmissionManager.IsAlive)
         {
-            transmissionManager = new Thread(delegate ()
-            {
-                StartSendThread();
-            });
-            transmissionManager.IsBackground = true;
             try
             {
                 transmissionManager.Start();
