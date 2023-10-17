@@ -53,7 +53,7 @@ public class GroundSender
             response = GroundSender_Stubs.HttpRequest_Stub();
 #else
             //Must systems test
-            //response = GroundSender_Stubs.HttpRequest_Stub();
+            //response = await client.PostAsync(targetURL, content);
 
             response = GroundSender_Stubs.HttpRequest_Stub();
 #endif
