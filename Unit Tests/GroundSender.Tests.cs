@@ -23,6 +23,7 @@ namespace Unit_Tests
 
         }
 
+        [TestMethod]
         public void GroundSender_Not_Added_Transmissions_Buffer_Is_Empty()
         {
             //Arrange
@@ -31,6 +32,34 @@ namespace Unit_Tests
             //Act
             //Assert
             Assert.IsTrue(sender.IsBufferEmpty());
+        }
+
+        [TestMethod]
+        public void GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True()
+        {
+            //Arrange
+            GroundSender sender = new GroundSender();
+
+            //Act
+            for (int i = 0; i < 10; i++)
+                sender.SendTransmission(ref testJsonString);
+
+            //Assert
+            Assert.AreEqual(true, sender.transmissionStatus);
+        }
+
+        [TestMethod]
+        public void GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True()
+        {
+            //Arrange
+            GroundSender sender = new GroundSender();
+
+            //Act
+            for (int i = 0; i < 10; i++)
+                sender.SendTransmission(ref testJsonString);
+
+            //Assert
+            Assert.AreEqual(true, sender.isRunning());
         }
 
     }

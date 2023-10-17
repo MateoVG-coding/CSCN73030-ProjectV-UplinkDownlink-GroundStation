@@ -1,5 +1,6 @@
 ﻿
 #define TEST 
+using Project_5_S;
 using System.Collections;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,13 +11,11 @@ public class GroundSender
     HttpClient client;
     private Thread transmissionManager;
     Mutex bufferLock;
-    public bool isRunning { get; set; }
-    private bool transmissionStatus { get; set; }
+    public bool transmissionStatus { get; set; }
 
     public GroundSender()
     {
         bufferLock = new Mutex();
-        isRunning = false;
         transmissionStatus = false;
         client = new HttpClient();
         transmissionQueue = new Queue<String>();
@@ -34,7 +33,6 @@ public class GroundSender
         HttpContent? content = null;
         HttpResponseMessage? response = null;
 
-        isRunning = true;
         transmissionStatus = true;
 
         while (transmissionQueue.Count > 0)
@@ -48,7 +46,12 @@ public class GroundSender
                 
             if(nextToSend != null)
                 content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
+#if DEBUG
+            response = GroundSender_Stubs.HttpRequest_Stub();
+#else
             response = await client.PostAsync("a url", content);
+#endif
+
 
             //Http request sends json string that was dequeued
             if (response.IsSuccessStatusCode)
@@ -56,12 +59,16 @@ public class GroundSender
             else
                 transmissionStatus = false;
         }
-        isRunning = false;
     }
 
     public bool IsBufferEmpty()
     {
-        return transmissionQueue.Count > 0;
+        return transmissionQueue.Count == 0;
+    }
+
+    public bool isRunning()
+    {
+        return transmissionManager.IsAlive;
     }
 
     public bool SendTransmission(ref String jsonData) 
@@ -88,12 +95,8 @@ public class GroundSender
             transmissionManager.IsBackground = true;
             try
             {
-#if DEBUG
-                Console.WriteLine("jumping start of thread");
-#else
                 transmissionManager.Start();
 
-#endif
             }catch(ThreadStateException)
             {
                 return false;
