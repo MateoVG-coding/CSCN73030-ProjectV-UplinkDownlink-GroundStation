@@ -52,7 +52,10 @@ public class GroundSender
 #if DEBUG
             response = GroundSender_Stubs.HttpRequest_Stub();
 #else
-            response = await client.PostAsync(targetURL, content);
+            //Must systems test
+            //response = GroundSender_Stubs.HttpRequest_Stub();
+
+            response = GroundSender_Stubs.HttpRequest_Stub();
 #endif
 
 
