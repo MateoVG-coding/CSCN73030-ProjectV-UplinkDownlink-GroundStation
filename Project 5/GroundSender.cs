@@ -1,5 +1,5 @@
 ﻿
-#define TEST 
+#define UNITTEST
 using Project_5_S;
 using System.Collections;
 using System.Linq.Expressions;
@@ -40,25 +40,22 @@ public class GroundSender
 
         while (transmissionQueue.Count > 0)
         {
+#if !UNITTEST
             if (transmissionStatus)
             {
+
                 bufferLock.WaitOne();
                 nextToSend = transmissionQueue.Dequeue();
                 bufferLock.ReleaseMutex();
             }
-                
+#endif       
             if(nextToSend != null)
                 content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
-#if DEBUG
+#if UNITTEST
             response = GroundSender_Stubs.HttpRequest_Stub();
 #else
-            //Must systems test
             //response = await client.PostAsync(targetURL, content);
-
-            response = GroundSender_Stubs.HttpRequest_Stub();
 #endif
-
-
             //Http request sends json string that was dequeued
             if (response.IsSuccessStatusCode)
                 transmissionStatus = true;
