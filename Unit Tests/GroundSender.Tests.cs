@@ -64,5 +64,19 @@ namespace Unit_Tests
             Assert.AreEqual(true, sender.isRunning());
         }
 
+        [TestMethod]
+        public void GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent()
+        {
+            //Arrange
+            GroundSender sender = new GroundSender(testURL);
+
+            //Act
+            
+            bool testResult = sender.SendTransmission(ref testJsonString);
+
+            //Assert
+            Assert.IsTrue(testResult);
+        }
+
     }
 }
