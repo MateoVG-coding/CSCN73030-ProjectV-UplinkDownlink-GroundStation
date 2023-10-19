@@ -1,8 +1,5 @@
-﻿using System.Net;
-using System.Net.Sockets;
+﻿
 
-namespace link
-{
     public class LinkController
     {
         public void CreateEndpoints()
@@ -93,5 +90,3 @@ namespace link
         }
 
     }
-
-}
