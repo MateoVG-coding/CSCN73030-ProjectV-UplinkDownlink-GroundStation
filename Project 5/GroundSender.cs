@@ -48,24 +48,26 @@ public class GroundSender
                 bufferLock.ReleaseMutex();
             }
 #endif       
-            if(nextToSend != null)
+            if (nextToSend != null)
+            {
                 content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
 
-            try
-            {
+                try
+                {
 #if DEBUG
-                response = GroundSender_Stubs.HttpRequest_Stub();
+                    response = GroundSender_Stubs.HttpRequest_Stub();
 #else
-            //response = await client.PostAsync(targetURL, content);
+                    response = await client.PostAsync(targetURL, content);
 #endif
-            }catch(HttpRequestException ex)
-            { return; }
-
-            //Http request sends json string that was dequeued
-            if (response.IsSuccessStatusCode)
-                transmissionStatus = true;
-            else
-                transmissionStatus = false;
+                    //Http request sends json string that was dequeued
+                    if (response.IsSuccessStatusCode)
+                        transmissionStatus = true;
+                    else
+                        transmissionStatus = false;
+                }
+                catch (HttpRequestException ex)
+                { return; }
+            }
         }
     }
 
