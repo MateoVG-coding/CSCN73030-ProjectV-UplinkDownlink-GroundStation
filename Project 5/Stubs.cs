@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Project_5_S
+{
+    public static class GroundSender_Stubs
+    {
+        public static HttpResponseMessage HttpRequest_Stub()
+        {
+
+            HttpResponseMessage response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            Console.WriteLine("Setting status code for test and sleeping for 200ms to simulate a response");
+            Thread.Sleep(500);
+            return response;
+        }
+    }
+}
