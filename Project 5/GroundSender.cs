@@ -1,5 +1,4 @@
 ﻿
-#define UNITTEST
 using Project_5_S;
 using System.Collections;
 using System.Linq.Expressions;
@@ -40,7 +39,7 @@ public class GroundSender
 
         while (transmissionQueue.Count > 0)
         {
-#if !UNITTEST
+#if !DEBUG
             if (transmissionStatus)
             {
 
@@ -54,7 +53,7 @@ public class GroundSender
 
             try
             {
-#if UNITTEST
+#if DEBUG
                 response = GroundSender_Stubs.HttpRequest_Stub();
 #else
             //response = await client.PostAsync(targetURL, content);
