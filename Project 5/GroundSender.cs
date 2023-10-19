@@ -51,11 +51,17 @@ public class GroundSender
 #endif       
             if(nextToSend != null)
                 content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
+
+            try
+            {
 #if UNITTEST
-            response = GroundSender_Stubs.HttpRequest_Stub();
+                response = GroundSender_Stubs.HttpRequest_Stub();
 #else
             //response = await client.PostAsync(targetURL, content);
 #endif
+            }catch(HttpRequestException ex)
+            { return; }
+
             //Http request sends json string that was dequeued
             if (response.IsSuccessStatusCode)
                 transmissionStatus = true;
