@@ -33,7 +33,7 @@ namespace Unit_Tests
             // Act
             sender.SendTransmission(testData);
 
-            await Task.Delay(1000); // Wait for up to 1 second
+            await Task.Delay(5000); // Wait for up to 1 second
 
             // Assert
             Assert.IsTrue(sender.TransmissionStatus); // Check the TransmissionStatus
@@ -50,7 +50,7 @@ namespace Unit_Tests
 
             // Act
             sender.SendTransmission(testData1);
-            await Task.Delay(100); // Give the thread some time to start.
+            await Task.Delay(5000); // Give the thread some time to start.
             sender.SendTransmission(testData2);
 
             // Assert

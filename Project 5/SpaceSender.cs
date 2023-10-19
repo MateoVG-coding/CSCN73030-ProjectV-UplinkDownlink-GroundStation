@@ -15,7 +15,10 @@ public class SpaceSender
     public SpaceSender(string targetURL)
     {
         this.targetURL = targetURL;
+        transmissionQueue = new Queue<string>();
+        client = new HttpClient();
         transmissionManager = new Thread(StartSendThread);
+        bufferLock = new object();
     }
 
     public bool IsBufferEmpty()
