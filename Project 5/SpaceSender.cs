@@ -11,6 +11,7 @@ public class SpaceSender
     private object bufferLock = new object();
     public bool TransmissionStatus { get; private set; }
     private string targetURL;
+    private Thread transmissionManager_Ping;
 
     public SpaceSender(string targetURL)
     {
@@ -18,6 +19,7 @@ public class SpaceSender
         transmissionQueue = new Queue<string>();
         client = new HttpClient();
         transmissionManager = new Thread(StartSendThread);
+        transmissionManager_Ping = new Thread(StartPingThread);
         bufferLock = new object();
     }
 
@@ -92,6 +94,32 @@ public class SpaceSender
             else
             {
                 Thread.Sleep(100);
+            }
+        }
+    }
+
+    private async void StartPingThread()
+    {
+        while (true)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(targetURL);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    TransmissionStatus = true;
+                    Thread.Sleep(1000);
+                }
+                else
+                {
+                    TransmissionStatus = false;
+                    Thread.Sleep(1000);
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                return;
             }
         }
     }
