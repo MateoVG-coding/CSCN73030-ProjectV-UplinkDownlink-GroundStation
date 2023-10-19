@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.AutoMock;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 
@@ -70,5 +71,30 @@ namespace Unit_Tests
             Assert.IsTrue(isEmpty);
         }
 
+        [TestMethod]
+        public void SpaceSender_SendPing_StartsPingThread()
+        {
+            SpaceSender sender = new SpaceSender("http://example.com");
+            bool isRunning = sender.IsRunning();
+            Assert.IsFalse(isRunning); 
+
+            sender.SendPing(); 
+            isRunning = sender.IsRunning_Ping();
+            Assert.IsTrue(isRunning); 
+        }
+
+
+        [TestMethod]
+        public async Task SpaceSender_SendPing_SetStatusToTrueWhenPingResponseIsReceived()
+        {
+            SpaceSender sender = new SpaceSender("http://example.com");
+            Assert.IsFalse(sender.TransmissionStatus); 
+
+            sender.SendPing();
+            await Task.Delay(500);
+            Assert.IsTrue(sender.TransmissionStatus);
+        }
+
+        
     }
 }

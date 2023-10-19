@@ -98,6 +98,11 @@ public class SpaceSender
         }
     }
 
+    public bool IsRunning_Ping()
+    {
+        return transmissionManager_Ping.IsAlive;
+    }
+
     private async void StartPingThread()
     {
         while (true)
@@ -120,6 +125,26 @@ public class SpaceSender
             catch (HttpRequestException e)
             {
                 return;
+            }
+        }
+    }
+
+    public void SendPing()
+    {
+        if (!transmissionManager_Ping.IsAlive)
+        {
+            try
+            {
+                transmissionManager_Ping = new Thread(StartPingThread);
+                transmissionManager_Ping.Start();
+            }
+            catch (ThreadStateException)
+            {
+                TransmissionStatus = false;
+            }
+            catch (OutOfMemoryException)
+            {
+                TransmissionStatus = false;
             }
         }
     }
