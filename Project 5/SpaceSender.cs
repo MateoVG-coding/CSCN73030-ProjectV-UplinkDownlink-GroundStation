@@ -115,7 +115,12 @@ public class SpaceSender
         {
             try
             {
+#if DEBUG
+                HttpResponseMessage response = Stub_SpaceSender.HttpRequest_Stub();
+#else
                 HttpResponseMessage response = await client.GetAsync(targetURL);
+#endif
+
 
                 if (response.IsSuccessStatusCode)
                 {
