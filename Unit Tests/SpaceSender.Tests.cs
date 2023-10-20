@@ -76,11 +76,14 @@ namespace Unit_Tests
         {
             SpaceSender sender = new SpaceSender("http://example.com");
             bool isRunning = sender.IsRunning();
-            Assert.IsFalse(isRunning); 
+            Assert.IsFalse(isRunning);
 
-            sender.SendPing();
-            isRunning = sender.IsRunning_Ping();
-            Assert.IsTrue(isRunning); 
+            for (int i = 0; i < 10; i++)
+            {
+                sender.SendPing();
+            }
+
+            Assert.IsTrue(sender.IsRunning_Ping()); 
         }
 
 
