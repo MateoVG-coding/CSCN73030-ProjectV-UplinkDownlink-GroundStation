@@ -8,11 +8,11 @@ public class SpaceSender
 {
     private Queue<string> transmissionQueue = new Queue<string>();
     private HttpClient client = new HttpClient();
-    private Thread transmissionManager;
+    private Thread? transmissionManager;
     Mutex bufferLock;
     public bool TransmissionStatus { get; private set; }
     private string targetURL;
-    private Thread transmissionManager_Ping;
+    private Thread? transmissionManager_Ping;
 
     public SpaceSender(string targetURL)
     {
@@ -34,7 +34,12 @@ public class SpaceSender
 
     public bool IsRunning()
     {
-        return transmissionManager.IsAlive;
+        bool status = false;
+        if (transmissionManager != null)
+            status = transmissionManager.IsAlive;
+        else
+            status = false;
+        return status;
     }
 
     public void SendTransmission(string jsonData)
@@ -46,18 +51,23 @@ public class SpaceSender
 
         if (!transmissionManager.IsAlive)
         {
+            if (TransmissionStatus)
+                transmissionManager.Join();
             try
             {
-                transmissionManager = new Thread(StartSendThread);
+                transmissionManager = new Thread(delegate ()
+                {
+                    StartSendThread();
+                });
                 transmissionManager.Start();
             }
             catch (ThreadStateException)
             {
-                TransmissionStatus = false;
+                return;
             }
             catch (OutOfMemoryException)
             {
-                TransmissionStatus = false;
+                return;
             }
         }
     }
@@ -106,7 +116,12 @@ public class SpaceSender
 
     public bool IsRunning_Ping()
     {
-        return transmissionManager_Ping.IsAlive;
+        bool status = false;
+        if (transmissionManager_Ping != null)
+            status = transmissionManager_Ping.IsAlive;
+        else
+            status = false;
+        return status;
     }
 
     private async void StartPingThread()
@@ -144,18 +159,23 @@ public class SpaceSender
     {
         if (!transmissionManager_Ping.IsAlive)
         {
+            if (TransmissionStatus)
+                transmissionManager_Ping.Join();
             try
             {
-                transmissionManager_Ping = new Thread(StartPingThread);
+                transmissionManager_Ping = new Thread(delegate ()
+                {
+                    StartSendThread();
+                });
                 transmissionManager_Ping.Start();
             }
             catch (ThreadStateException)
             {
-                TransmissionStatus = false;
+                return;
             }
             catch (OutOfMemoryException)
             {
-                TransmissionStatus = false;
+                return;
             }
         }
     }
