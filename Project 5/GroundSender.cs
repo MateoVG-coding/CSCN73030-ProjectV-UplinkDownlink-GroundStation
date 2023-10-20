@@ -2,13 +2,14 @@
 using Project_5_S;
 using System.Collections;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 public class GroundSender
 {
     private Queue<String> transmissionQueue;
     HttpClient client;
-    private Thread transmissionManager;
+    private Thread? transmissionManager;
     Mutex bufferLock;
     public bool transmissionStatus { get; set; }
     String targetURL;
@@ -25,7 +26,6 @@ public class GroundSender
         {
             StartSendThread();
         });
-        transmissionManager.IsBackground = true;
     }
 
     private async void StartSendThread()
@@ -78,7 +78,12 @@ public class GroundSender
 
     public bool isRunning()
     {
-        return transmissionManager.IsAlive;
+        bool status = false;
+        if (transmissionManager != null)
+            status = transmissionManager.IsAlive;
+        else
+            status = false;
+        return status;
     }
 
     public bool SendTransmission(ref String jsonData) 
@@ -98,12 +103,19 @@ public class GroundSender
         
         if(!transmissionManager.IsAlive)
         {
+            if (transmissionStatus)
+                transmissionManager.Join();
             try
             {
+                transmissionManager = new Thread(delegate ()
+                {
+                    StartSendThread();
+                });
                 transmissionManager.Start();
 
             }catch(ThreadStateException)
             {
+                
                 return false;
             }
             catch(OutOfMemoryException)
