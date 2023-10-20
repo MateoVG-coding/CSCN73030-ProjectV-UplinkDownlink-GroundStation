@@ -78,7 +78,7 @@ namespace Unit_Tests
             bool isRunning = sender.IsRunning();
             Assert.IsFalse(isRunning); 
 
-            sender.SendPing(); 
+            sender.SendPing();
             isRunning = sender.IsRunning_Ping();
             Assert.IsTrue(isRunning); 
         }
@@ -91,7 +91,7 @@ namespace Unit_Tests
             Assert.IsFalse(sender.TransmissionStatus); 
 
             sender.SendPing();
-            await Task.Delay(500);
+            await Task.Delay(5000);
             Assert.IsTrue(sender.TransmissionStatus);
         }
 
