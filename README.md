@@ -4,3 +4,6 @@
 
 #GroundSender Class
 The DEBUG preprocessor definition enables and disables the stub used to emulate a successful HTTP request.
+
+#SpaceSender Class
+The DEBUG preprocessor definition enables and disables the stub used to emulate a successful HTTP request.
