@@ -1,7 +1,7 @@
 ﻿using WebIncludes;
 using Threading;
 using link;
-class MainProgram
+public class MainProgram
 {
     static public void Main(String[] args)
     {
