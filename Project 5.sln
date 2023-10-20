@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unit Tests", "Unit Tests\Un
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project 5 Ground UD Link", "Project 5\Project 5 Ground UD Link.csproj", "{4071DAB7-5566-4936-B1FA-216FA0C8D3EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integ-UpLink-Downlink--Ground-Spacesender.Tests", "Integ-UpLink-Downlink--Ground-Spacesender.Tests\Integ-UpLink-Downlink--Ground-Spacesender.Tests.csproj", "{007E8B63-2918-4EF9-96AF-EF00120C9CAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,14 +19,14 @@ Global
 		{E5E84903-313D-449B-8934-8A0DA9D5A5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5E84903-313D-449B-8934-8A0DA9D5A5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5E84903-313D-449B-8934-8A0DA9D5A5DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA98C708-68F3-409E-95E4-ABC069EF7B19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA98C708-68F3-409E-95E4-ABC069EF7B19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA98C708-68F3-409E-95E4-ABC069EF7B19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA98C708-68F3-409E-95E4-ABC069EF7B19}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4071DAB7-5566-4936-B1FA-216FA0C8D3EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4071DAB7-5566-4936-B1FA-216FA0C8D3EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4071DAB7-5566-4936-B1FA-216FA0C8D3EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4071DAB7-5566-4936-B1FA-216FA0C8D3EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{007E8B63-2918-4EF9-96AF-EF00120C9CAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{007E8B63-2918-4EF9-96AF-EF00120C9CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{007E8B63-2918-4EF9-96AF-EF00120C9CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{007E8B63-2918-4EF9-96AF-EF00120C9CAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
