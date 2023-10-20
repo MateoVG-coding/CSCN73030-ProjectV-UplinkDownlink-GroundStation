@@ -8,7 +8,7 @@ public class SpaceSender
     private Queue<string> transmissionQueue = new Queue<string>();
     private HttpClient client = new HttpClient();
     private Thread transmissionManager;
-    private object bufferLock = new object();
+    Mutex bufferLock;
     public bool TransmissionStatus { get; private set; }
     private string targetURL;
     private Thread transmissionManager_Ping;
@@ -20,7 +20,7 @@ public class SpaceSender
         client = new HttpClient();
         transmissionManager = new Thread(StartSendThread);
         transmissionManager_Ping = new Thread(StartPingThread);
-        bufferLock = new object();
+        bufferLock = new Mutex();
     }
 
     public bool IsBufferEmpty()
@@ -64,36 +64,41 @@ public class SpaceSender
     private async void StartSendThread()
     {
         TransmissionStatus = true;
+        String? nextToSend = null;
+        client = new HttpClient();
+        HttpContent? content = null;
+        HttpResponseMessage? response = null;
 
         while (transmissionQueue.Count > 0)
         {
-            string nextToSend = null;
-
-            lock (bufferLock)
+#if !DEBUG
+            if (TransmissionStatus)
             {
-                if (transmissionQueue.Count > 0)
-                {
-                    nextToSend = transmissionQueue.Dequeue();
-                }
-            }
 
+                bufferLock.WaitOne();
+                nextToSend = transmissionQueue.Dequeue();
+                bufferLock.ReleaseMutex();
+            }
+#endif       
             if (nextToSend != null)
             {
-                HttpContent content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(targetURL, content);
+                content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
 
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    TransmissionStatus = true;
+#if DEBUG
+                    response = GroundSender_Stubs.HttpRequest_Stub();
+#else
+                    response = await client.PostAsync(targetURL, content);
+#endif
+                    //Http request sends json string that was dequeued
+                    if (response.IsSuccessStatusCode)
+                        TransmissionStatus = true;
+                    else
+                        TransmissionStatus = false;
                 }
-                else
-                {
-                    TransmissionStatus = false;
-                }
-            }
-            else
-            {
-                Thread.Sleep(100);
+                catch (HttpRequestException ex)
+                { return; }
             }
         }
     }
