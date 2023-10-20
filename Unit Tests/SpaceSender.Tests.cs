@@ -81,7 +81,5 @@ namespace Unit_Tests
             await Task.Delay(5000);
             Assert.IsTrue(sender.TransmissionStatus);
         }
-
-        
     }
 }

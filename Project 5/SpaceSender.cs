@@ -1,4 +1,5 @@
 ﻿#define TEST
+using Project_5_Setup;
 using System.Collections;
 using System.Linq.Expressions;
 using System.Text;
@@ -87,7 +88,7 @@ public class SpaceSender
                 try
                 {
 #if DEBUG
-                    response = GroundSender_Stubs.HttpRequest_Stub();
+                    response = Stub_SpaceSender.HttpRequest_Stub();
 #else
                     response = await client.PostAsync(targetURL, content);
 #endif
