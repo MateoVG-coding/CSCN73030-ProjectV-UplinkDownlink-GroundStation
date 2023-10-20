@@ -65,7 +65,7 @@ public class SpaceSender
     {
         TransmissionStatus = true;
 
-        while (true)
+        while (transmissionQueue.Count > 0)
         {
             string nextToSend = null;
 

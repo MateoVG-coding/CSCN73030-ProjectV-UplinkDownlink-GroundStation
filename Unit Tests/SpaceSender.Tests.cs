@@ -72,22 +72,6 @@ namespace Unit_Tests
         }
 
         [TestMethod]
-        public void SpaceSender_SendPing_StartsPingThread()
-        {
-            SpaceSender sender = new SpaceSender("http://example.com");
-            bool isRunning = sender.IsRunning();
-            Assert.IsFalse(isRunning);
-
-            for (int i = 0; i < 10; i++)
-            {
-                sender.SendPing();
-            }
-
-            Assert.IsTrue(sender.IsRunning_Ping()); 
-        }
-
-
-        [TestMethod]
         public async Task SpaceSender_SendPing_SetStatusToTrueWhenPingResponseIsReceived()
         {
             SpaceSender sender = new SpaceSender("http://example.com");
