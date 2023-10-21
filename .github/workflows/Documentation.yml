@@ -1,0 +1,49 @@
+#Workflow ensures that Integration tests have been performed. 
+
+name: Update Documentation
+
+on:
+  push:
+    branches:
+    - '**feature**'
+    - '**Feature**'
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest  # For a list of available runner types, refer to
+                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+
+    env:
+      Solution_Name: "Project 5.sln"                        # Replace with your solution name, i.e. MyWpfApp.sln.
+      
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # Update Docfx
+    - name: Install DoxFx
+      run: dotnet tool update -g docfx
+
+    # Automatically Updating Documentation
+    - name: Automatically Updating Documentation
+      run: docfx
