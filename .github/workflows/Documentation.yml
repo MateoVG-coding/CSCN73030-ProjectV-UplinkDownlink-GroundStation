@@ -27,9 +27,5 @@ jobs:
     # Automatically Updating Documentation
     - name: Automatically Updating Documentation
       run: docfx
-    - name: Run Doc Server To Update Pages
-      run: |
-        docfx docfx.json --serve
-        await vscode.commands.executeCommand("workbench.action.terminal.sendSequence", { text : "\x03" });
     - name: "Commit Document Changes"
       run: git push
