@@ -1,14 +1,10 @@
 {
   "metadata": [
     {
-      "src": [
-        {
-          "files": [
-            "**.csproj"
-          ],
-          "src": "../Project 5"
-        }
-      ],
+      "src": [{
+        "files": ["**/bin/Release/**.dll"],
+        "src": "../"
+      }],
       "dest": "api",
       "outputFormat": "mref",
       "includePrivateMembers": false,
