@@ -4,8 +4,9 @@
       "src": [
         {
           "files": [
-            "../Project 5/Project 5 Ground UD Link.csproj"
-          ]
+            "src/**.csproj"
+          ],
+          "src": "../Project 5"
         }
       ],
       "dest": "api",
