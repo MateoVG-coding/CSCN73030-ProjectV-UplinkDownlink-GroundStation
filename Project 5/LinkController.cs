@@ -2,8 +2,14 @@
 
 namespace link
 {
+    /// <summary>
+    /// API Endpoints for sending and receiving data and providing a status state
+    /// </summary>
     public class LinkController
     {
+        /// <summary>
+        /// Create endpoints for the API
+        /// </summary>
         public void CreateEndpoints()
         {
             //list of all endpoints
