@@ -2,17 +2,9 @@
 
 name: Update Documentation
 
-on:
-  push:
-    branches:
-    - '**'
-  pull_request:
-    branches: [ "master" ]
-
+on: push
 jobs:
-
   build:
-
     strategy:
       matrix:
         configuration: [Debug, Release]
