@@ -16,9 +16,10 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    # Update Docfx
-    - name: Install DoxFx
-      run: dotnet tool update -g docfx
+    - name: Setup DocFX
+      uses: crazy-max/ghaction-chocolatey@v1
+      with:
+        args: install docfx
 
     - name: DocFX Build
       working-directory: docs
