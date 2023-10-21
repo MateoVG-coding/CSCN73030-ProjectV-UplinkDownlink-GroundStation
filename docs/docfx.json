@@ -2,8 +2,8 @@
   "metadata": [
     {
       "src": [{
-        "files": ["**/bin/Release/**.dll"],
-        "src": "../../Project 5/"
+        "files": ["/bin/Release/**.dll"],
+        "src": "../../Project 5"
       }],
       "dest": "api",
       "outputFormat": "mref",
