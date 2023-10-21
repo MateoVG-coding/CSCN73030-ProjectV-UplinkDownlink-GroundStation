@@ -3,7 +3,7 @@
     {
       "src": [{
         "files": ["**/bin/Release/**.dll"],
-        "src": "../"
+        "src": "../../"
       }],
       "dest": "api",
       "outputFormat": "mref",
