@@ -33,7 +33,7 @@
       { "files": "**/*.{md,yml}", "exclude": "**/include/**", "src":"../.." }
     ],
     "resource": [
-      { "files": "**/images/**", "src":"../.." }
+      { "files": "**/images/**"}
     ]
   }
 }
