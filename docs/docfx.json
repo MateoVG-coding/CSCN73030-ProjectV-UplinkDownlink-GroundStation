@@ -30,18 +30,10 @@
 
   "build": {
     "content": [
-      { "files": "**/*.{md,yml}", "src": "../docs"}
+      { "files": "**/*.{md,yml}", "exclude": "**/include/**" }
     ],
-    "resource": [{ "files": "**/images/**", "src": "../docs" }],
-      "output": "_site",
-      "globalMetadataFiles": [],
-      "fileMetadataFiles": [],
-      "template": [
-        "default",
-        "modern"
-      ],
-      "postProcessors": [],
-      "keepFileLink": false,
-      "disableGitFeatures": false 
+    "resource": [
+      { "files": "**/images/**" }
+    ]
   }
 }
