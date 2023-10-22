@@ -17,4 +17,13 @@ namespace Project_5_S
             return response;
         }
     }
+
+    public static class Downlink_Stubs
+    {
+        public static bool AddToQueue_Stub(String payload)
+        {
+            return true;
+        }
+    }
+
 }
