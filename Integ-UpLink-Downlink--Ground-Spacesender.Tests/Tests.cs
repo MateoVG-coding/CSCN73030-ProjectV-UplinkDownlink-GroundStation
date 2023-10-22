@@ -31,4 +31,14 @@ public class Tests
         Assert.AreEqual("text/html; charset=utf-8",
             response.Content.Headers.ContentType.ToString());
     }
+
+    public async Task GroundSender_Starts_Tranmissions()
+    {
+        //Arrange
+        var sender = new GroundSender("test");
+
+        //Act
+
+        //Assert
+    }
 }

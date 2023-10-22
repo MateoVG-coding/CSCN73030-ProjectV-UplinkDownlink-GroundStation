@@ -16,6 +16,16 @@ namespace Project_5
             Thread.Sleep(500);
             return response;
         }
+
+        public static void StartSendTransmission_Stub()
+        {
+            //Do nothing
+        }
+
+        public static void StartSendTransmission_Throws_Exception(Exception ex)
+        {
+            throw ex;
+        }
     }
 
     public static class Downlink_Stubs

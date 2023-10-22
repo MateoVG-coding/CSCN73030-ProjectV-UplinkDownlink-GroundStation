@@ -100,8 +100,16 @@ public class GroundSender
         {
             return false;
         }
-        
-        if(!transmissionManager.IsAlive)
+
+        if (transmissionManager == null)
+        {
+            transmissionManager = new Thread(delegate ()
+            {
+                GroundSender_Stubs.StartSendTransmission_Stub();
+            });
+        }
+
+        if (!transmissionManager.IsAlive)
         {
             if (transmissionStatus)
                 transmissionManager.Join();
@@ -109,20 +117,20 @@ public class GroundSender
             {
                 transmissionManager = new Thread(delegate ()
                 {
-                    StartSendThread();
+                    GroundSender_Stubs.StartSendTransmission_Stub();
                 });
                 transmissionManager.Start();
 
-            }catch(ThreadStateException)
+            }
+            catch (ThreadStateException)
             {
-                
+
                 return false;
             }
-            catch(OutOfMemoryException)
+            catch (OutOfMemoryException)
             {
                 return false;
             }
-            
         }
         return true;
     }
