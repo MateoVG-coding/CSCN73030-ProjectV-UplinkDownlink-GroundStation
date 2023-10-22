@@ -14,26 +14,25 @@
         "src":"../.."
         }
 
-      ],
-      "dest": "api",
-      "outputFormat": "mref",
-      "includePrivateMembers": false,
-      "disableGitFeatures": false,
-      "disableDefaultFilter": false,
-      "noRestore": false,
-      "namespaceLayout": "flattened",
-      "memberLayout": "samePage",
-      "enumSortOrder": "alphabetic",
-      "allowCompilationErrors": false
+      ]
     }
   ],
-
   "build": {
     "content": [
-      { "files": "**/*.{md,yml}", "exclude": "**/include/**", "src":"../.." }
+      { "files": "**/*.{md,yml}", "exclude": "**/include/**" }
     ],
     "resource": [
       { "files": "**/images/**"}
-    ]
+    ],
+    "dest": "../docs",
+        "globalMetadataFiles": [],
+        "fileMetadataFiles": [],
+        "template": [ "default" ],
+        "postProcessors": [],
+        "markdownEngineName": "markdig",
+        "noLangKeyword": false,
+        "keepFileLink": false,
+        "cleanupCacheHistory": false,
+        "disableGitFeatures": false
   }
 }
