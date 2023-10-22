@@ -31,16 +31,16 @@
     "content": [
       {
         "files": [
-          "docs/api/**.yml",
-          "docs/api/README.md"
+          "api/**.yml",
+          "api/README.md"
         ]
       },
       {
         "files": [
-          "docs/articles/**.md",
-          "docs/articles/**/toc.yml",
-          "docs/toc.yml",
-          "docs/*.md"
+          "articles/**.md",
+          "articles/**/toc.yml",
+          "toc.yml",
+          "*.md"
         ]
       }
     ],
