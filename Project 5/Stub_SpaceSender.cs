@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_5_Setup
+namespace Project_5
 {
     public static class Stub_SpaceSender
     {
@@ -15,6 +15,11 @@ namespace Project_5_Setup
             Console.WriteLine("Setting status code for test and sleeping for 200ms to simulate a response");
             Thread.Sleep(500);
             return response;
+        }
+
+        public static bool GetTranmissionStatus_Stub()
+        {
+            return true;
         }
     }
 }
