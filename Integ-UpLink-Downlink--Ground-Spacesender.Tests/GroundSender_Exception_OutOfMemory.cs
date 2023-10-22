@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-public class GroundSender
+public class GroundSender_Exception_OutOfMemory
 {
     private Queue<String> transmissionQueue;
     HttpClient client;
@@ -15,7 +15,7 @@ public class GroundSender
     String targetURL;
     
 
-    public GroundSender(String target)
+    public GroundSender_Exception_OutOfMemory(String target)
     {
         bufferLock = new Mutex();
         transmissionStatus = false;
@@ -101,14 +101,14 @@ public class GroundSender
             return false;
         }
 
-
         if (transmissionManager == null)
         {
+            transmissionStatus = false;
             transmissionManager = new Thread(delegate ()
             {
-                StartSendThread();
+                GroundSender_Stubs.StartSendTransmission_Throws_OutOfMemoryException();
             });
-
+            
         }
 
         if (!transmissionManager.IsAlive)
@@ -117,12 +117,7 @@ public class GroundSender
                 transmissionManager.Join();
             try
             {
-                transmissionManager = new Thread(delegate ()
-                {
-                    StartSendThread();
-                });
-                transmissionManager.Start();
-
+                GroundSender_Stubs.StartSendTransmission_Throws_OutOfMemoryException();
             }
             catch (ThreadStateException)
             {

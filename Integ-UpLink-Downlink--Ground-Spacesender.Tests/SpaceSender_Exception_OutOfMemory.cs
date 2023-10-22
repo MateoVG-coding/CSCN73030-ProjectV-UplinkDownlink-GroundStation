@@ -4,7 +4,7 @@ using System.Collections;
 using System.Linq.Expressions;
 using System.Text;
 
-public class SpaceSender
+public class SpaceSender_Exception_OutOfMemory
 {
     private Queue<string> transmissionQueue = new Queue<string>();
     private HttpClient client = new HttpClient();
@@ -14,7 +14,7 @@ public class SpaceSender
     private string targetURL;
     private Thread? transmissionManager_Ping;
 
-    public SpaceSender(string targetURL)
+    public SpaceSender_Exception_OutOfMemory(string targetURL)
     {
         this.targetURL = targetURL;
         transmissionQueue = new Queue<string>();

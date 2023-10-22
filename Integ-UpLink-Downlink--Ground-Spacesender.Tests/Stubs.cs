@@ -16,6 +16,26 @@ namespace Project_5
             Thread.Sleep(500);
             return response;
         }
+
+        public static void StartSendTransmission_Stub()
+        {
+            //Do nothing
+        }
+
+        public static void HttpRequest_Throws_HttpRequestException_Stub()
+        {
+            throw new HttpRequestException();
+        }
+
+        public static void StartSendTransmission_Throws_OutOfMemoryException()
+        {
+            throw new OutOfMemoryException();
+        }
+
+        public static void StartSendTransmission_Throws_ThreadStateException()
+        {
+            throw new ThreadStateException();
+        }
     }
 
     public static class Downlink_Stubs
