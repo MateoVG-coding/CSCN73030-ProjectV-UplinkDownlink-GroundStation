@@ -27,37 +27,21 @@
       "allowCompilationErrors": false
     }
   ],
+
   "build": {
     "content": [
-      {
-        "files": [
-          "api/**.yml",
-          "api/README.md",
-          "articles/**.md",
-          "articles/**/toc.yml",
-          "toc.yml",
-          "*.md"
-        ],
-        "src": "../docs"
-      }
+      { "files": "**/*.{md,yml}", "src": "../docs"}
     ],
-    "resource": [
-      {
-        "files": [
-          "images/**"
-        ],
-        "src":"../.."
-      }
-    ],
-    "output": "_site",
-    "globalMetadataFiles": [],
-    "fileMetadataFiles": [],
-    "template": [
-      "default",
-      "modern"
-    ],
-    "postProcessors": [],
-    "keepFileLink": false,
-    "disableGitFeatures": false
+    "resource": [{ "files": "**/images/**", "src": "../docs" }],
+      "output": "_site",
+      "globalMetadataFiles": [],
+      "fileMetadataFiles": [],
+      "template": [
+        "default",
+        "modern"
+      ],
+      "postProcessors": [],
+      "keepFileLink": false,
+      "disableGitFeatures": false 
   }
 }
