@@ -31,23 +31,23 @@
     "content": [
       {
         "files": [
-          "api/**.yml",
-          "api/README.md"
+          "../docs/api/**.yml",
+          "../docs/api/README.md"
         ]
       },
       {
         "files": [
-          "articles/**.md",
-          "articles/**/toc.yml",
-          "toc.yml",
-          "*.md"
+          "../docs/articles/**.md",
+          "../docs/articles/**/toc.yml",
+          "../docs/toc.yml",
+          "../docs/*.md"
         ]
       }
     ],
     "resource": [
       {
         "files": [
-          "images/**"
+          "../docs/images/**"
         ]
       }
     ],
