@@ -50,8 +50,7 @@
       {
         "files": [
           "images/**"
-        ],
-        "src":"../docs"
+        ]
       }
     ],
     "output": "_site",
