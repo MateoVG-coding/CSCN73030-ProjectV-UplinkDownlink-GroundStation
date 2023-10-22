@@ -5,12 +5,20 @@ using Project_5;
 class DownLink
 {
     private GroundSender sender;
-    private string enpoint;
-    private string ipAddress;
+    private String passThroughEndpoint;
+    private String passThroughAddress;
+    private String groundStationAddress;
+    private String groundStationEndPoint;
 
-    DownLink(String ip,  String enpoint)
+    DownLink(String passThroughAddress,  String passThroughEndPoint, String groundStationAddress, String groundStationEndPoint)
     {
 
+    }
+
+    private String PeekAtAddress(String payload)
+    {
+        //returns "Test_Address"
+        return Downlink_Stubs.PeekAtAddress_Stub(payload);
     }
 
     public void InitSender()

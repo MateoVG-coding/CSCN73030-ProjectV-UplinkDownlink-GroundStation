@@ -24,6 +24,11 @@ namespace Project_5
         {
             return true;
         }
+
+        public static String PeekAtAddress_Stub(String payload)
+        {
+            return "Test_Address";
+        }
     }
 
 }

@@ -17,7 +17,7 @@ namespace Project_5
             return response;
         }
 
-        public static bool GetTranmissionStatus_Stub()
+        public static bool GetLinkStatus_Stub()
         {
             return true;
         }

@@ -25,9 +25,9 @@ class UpLink
 
     }
 
-    public bool GetTranmissionStatus()
+    public bool GetLinkStatus()
     {
-       return Stub_SpaceSender.GetTranmissionStatus_Stub();
+       return Stub_SpaceSender.GetLinkStatus_Stub();
     }
 
     public void Clear()
