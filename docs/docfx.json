@@ -1,10 +1,20 @@
 {
   "metadata": [
     {
-      "src": [{
-        "files": ["**.csproj"],
-        "src": "../../Project 5"
-      }],
+      "src": [
+        {
+          "files": [
+            "Source/**.sln"
+          ],
+          "exclude": [
+            "**/obj/**",
+            "**/bin/**",
+            "_site/**"
+          ],
+        "src":".."
+        }
+
+      ],
       "dest": "api",
       "outputFormat": "mref",
       "includePrivateMembers": false,
