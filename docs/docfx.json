@@ -2,8 +2,8 @@
   "metadata": [
     {
       "src": [{
-        "files": ["src/Project 5 Ground UD Link.csproj"],
-        "src": "../../Project 5"
+        "files": ["src/**.csproj"],
+        "src": "../Project 5"
       }],
       "dest": "api",
       "outputFormat": "mref",
