@@ -33,7 +33,8 @@
         "files": [
           "api/**.yml",
           "api/README.md"
-        ]
+        ],
+        "src":"../docs"
       },
       {
         "files": [
@@ -41,14 +42,16 @@
           "articles/**/toc.yml",
           "toc.yml",
           "*.md"
-        ]
+        ],
+        "src":"../docs"
       }
     ],
     "resource": [
       {
         "files": [
-          "docs/images/**"
-        ]
+          "images/**"
+        ],
+        "src":"../docs"
       }
     ],
     "output": "_site",
