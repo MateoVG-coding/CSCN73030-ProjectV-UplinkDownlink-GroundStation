@@ -3,7 +3,7 @@
     {
       "src": [{
         "files": ["**.cs"],
-        "src": "../../Project 5"
+        "src": "../../Project 5/"
       }],
       "dest": "api",
       "outputFormat": "mref",
