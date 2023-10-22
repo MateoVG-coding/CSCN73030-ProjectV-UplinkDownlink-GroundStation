@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-public class GroundSender
+public class GroundSender_Exception_HttpRequestException
 {
     private Queue<String> transmissionQueue;
     HttpClient client;
@@ -15,7 +15,7 @@ public class GroundSender
     String targetURL;
     
 
-    public GroundSender(String target)
+    public GroundSender_Exception_HttpRequestException(String target)
     {
         bufferLock = new Mutex();
         transmissionStatus = false;
@@ -28,7 +28,7 @@ public class GroundSender
         });
     }
 
-    private async void StartSendThread()
+    public async void StartSendThread()
     {
         String? nextToSend = null;
         client = new HttpClient();
@@ -55,7 +55,7 @@ public class GroundSender
                 try
                 {
 #if DEBUG
-                    response = GroundSender_Stubs.HttpRequest_Stub();
+                    GroundSender_Stubs.HttpRequest_Throws_HttpRequestException_Stub();
 #else
                     response = await client.PostAsync(targetURL, content);
 #endif
@@ -101,14 +101,10 @@ public class GroundSender
             return false;
         }
 
-
         if (transmissionManager == null)
         {
-            transmissionManager = new Thread(delegate ()
-            {
-                StartSendThread();
-            });
-
+            transmissionStatus = false;
+            GroundSender_Stubs.StartSendTransmission_Stub();
         }
 
         if (!transmissionManager.IsAlive)
@@ -119,10 +115,9 @@ public class GroundSender
             {
                 transmissionManager = new Thread(delegate ()
                 {
-                    StartSendThread();
+                    GroundSender_Stubs.StartSendTransmission_Stub();
                 });
                 transmissionManager.Start();
-
             }
             catch (ThreadStateException)
             {

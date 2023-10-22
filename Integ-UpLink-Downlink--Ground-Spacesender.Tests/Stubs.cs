@@ -22,9 +22,19 @@ namespace Project_5
             //Do nothing
         }
 
-        public static void StartSendTransmission_Throws_Exception(Exception ex)
+        public static void HttpRequest_Throws_HttpRequestException_Stub()
         {
-            throw ex;
+            throw new HttpRequestException();
+        }
+
+        public static void StartSendTransmission_Throws_OutOfMemoryException()
+        {
+            throw new OutOfMemoryException();
+        }
+
+        public static void StartSendTransmission_Throws_ThreadStateException()
+        {
+            throw new ThreadStateException();
         }
     }
 
