@@ -2,7 +2,7 @@
   "metadata": [
     {
       "src": [{
-        "files": ["/bin/Release/**.dll"],
+        "files": ["**.cs"],
         "src": "../../Project 5"
       }],
       "dest": "api",
