@@ -10,22 +10,37 @@
     "content": [
       {
         "files": [
-          "src/**/*.cs"
+          "docs/api/**.yml",
+          "docs/api/index.md"
         ],
         "src": "src",
         "dest": "api"
       },
       {
         "files": [
-          "docs/**/*.md"
+          "docs/articles/**.md",
+          "docs/articles/**/toc.yml",
+          "docs/toc.yml",
+          "docs/*.md"
         ],
         "src": "docs",
         "dest": "articles"
       }
     ],
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [ "default" ],
+    "postProcessors": [],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false,
+    
     "dest": "../docs/_site",
     "globalMetadata": {
       "_appTitle": "Ground: Uplink and Downlink",
       "_disableContribution": true
     }
+  }
 }
