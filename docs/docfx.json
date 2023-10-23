@@ -20,16 +20,16 @@
     "content": [
       {
         "files": [
-          "../docs/api/**.yml",
-          "../docs/api/index.md"
+          "api/**.yml",
+          "api/index.md"
         ]
       },
       {
         "files": [
-          "../docs/articles/**.md",
-          "../docs/articles/**/toc.yml",
-          "../docs/toc.yml",
-          "../docs/*.md"
+          "articles/**.md",
+          "articles/**/toc.yml",
+          "toc.yml",
+          "*.md"
         ]
       }
     ],
@@ -40,8 +40,8 @@
         ]
       }
     ],
-    "dest": "../docs/api",
-    "output": "../docs/_site",
+    "dest": "api",
+    "output": "_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [ "default" ],
