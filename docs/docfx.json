@@ -1,18 +1,15 @@
 {
   "metadata": [
     {
-      "src": [
+      "src": "../Project 5/**/*.csproj", // Adjust the path to match your project location
+      "dest": "src",
+      "isDependency": true,
+      "fileMetadata": [
         {
-          "files": [
-            "**/**.sln"
-          ],
-          "exclude": [
-            "**/obj/**",
-            "**/bin/**"
-          ],
-        "src":"../.."
+          "src": "project.json",
+          "key": "type",
+          "value": "project"
         }
-
       ]
     }
   ],
@@ -20,36 +17,51 @@
     "content": [
       {
         "files": [
-          "api/**.yml",
-          "api/index.md"
-        ]
+          "src/**/*.cs",
+          "src/**/*.vb"
+        ],
+        "src": "src",
+        "dest": "api"
       },
       {
         "files": [
-          "articles/**.md",
-          "articles/**/toc.yml",
-          "toc.yml",
-          "*.md"
-        ]
+          "docs/**/*.md"
+        ],
+        "src": "docs",
+        "dest": "articles"
       }
     ],
-    "resource": [
+    "dest": "../docs/_site",
+    "globalMetadata": {
+      "_appTitle": "Ground: Uplink and Downlink",
+      "_disableContribution": true
+    },
+    "fileMetadata": [
       {
-        "files": [
-          "images/**"
-        ]
+        "src": "**/*.md",
+        "dest": "",
+        "key": "is_index",
+        "value": true
       }
     ],
-    "dest": "api",
-    "output": "_site",
-    "globalMetadataFiles": [],
-    "fileMetadataFiles": [],
-    "template": [ "default" ],
-    "postProcessors": [],
-    "markdownEngineName": "markdig",
-    "noLangKeyword": false,
-    "keepFileLink": false,
-    "cleanupCacheHistory": false,
-    "disableGitFeatures": false
+    "template": [
+      "default"
+    ]
+  },
+  "template": {
+    "name": "default",
+    "fallbackFolders": [
+      "_shared"
+    ]
+  },
+  "pdf": {
+    "strategy": "strategy",
+    "pdfDocsets": [
+      {
+        "src": "docfx_project",
+        "dest": "apidoc"
+      }
+    ],
+    "dest": "pdf"
   }
 }
