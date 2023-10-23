@@ -1,7 +1,17 @@
 {
   "metadata": [
     {
-      "src": "../Project 5/**/*.csproj", // Adjust the path to match your project location
+      "src": [
+        {
+          "files": [
+            "**/**.sln"
+          ],
+          "exclude": [
+            "**/obj/**",
+            "**/bin/**"
+          ]
+        }
+      ],
       "dest": "src",
       "isDependency": true
     }
