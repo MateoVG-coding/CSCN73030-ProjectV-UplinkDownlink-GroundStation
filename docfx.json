@@ -13,7 +13,7 @@
     }
   ],
   "build": {
-    "template": ["modern"],
+    "template": ["default", "modern"],
     "content": [
       {
         "files": [
@@ -33,7 +33,7 @@
         ]
       }
     ], 
-	"output": "_site",
+	"output": "docs/_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "postProcessors": [],
