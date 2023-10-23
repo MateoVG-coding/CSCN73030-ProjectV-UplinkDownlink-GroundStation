@@ -9,34 +9,39 @@
           "exclude": [
             "**/obj/**",
             "**/bin/**"
-          ]
+          ],
+        "src":"../.."
         }
-      ],
-      "dest": "src",
-      "isDependency": true
+
+      ]
     }
   ],
   "build": {
     "content": [
       {
         "files": [
-          "docs/api/**.yml",
-          "docs/api/index.md"
-        ],
-        "src": "src",
-        "dest": "api"
+          "../docs/api/**.yml",
+          "../docs/api/index.md"
+        ]
       },
       {
         "files": [
-          "docs/articles/**.md",
-          "docs/articles/**/toc.yml",
-          "docs/toc.yml",
-          "docs/*.md"
-        ],
-        "src": "docs",
-        "dest": "articles"
+          "../docs/articles/**.md",
+          "../docs/articles/**/toc.yml",
+          "../docs/toc.yml",
+          "../docs/*.md"
+        ]
       }
     ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "dest": "../docs/api",
+    "output": "../docs/_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [ "default" ],
@@ -45,12 +50,6 @@
     "noLangKeyword": false,
     "keepFileLink": false,
     "cleanupCacheHistory": false,
-    "disableGitFeatures": false,
-    
-    "dest": "../docs/_site",
-    "globalMetadata": {
-      "_appTitle": "Ground: Uplink and Downlink",
-      "_disableContribution": true
-    }
+    "disableGitFeatures": false
   }
 }
