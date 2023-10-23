@@ -3,22 +3,14 @@
     {
       "src": "../Project 5/**/*.csproj", // Adjust the path to match your project location
       "dest": "src",
-      "isDependency": true,
-      "fileMetadata": [
-        {
-          "src": "project.json",
-          "key": "type",
-          "value": "project"
-        }
-      ]
+      "isDependency": true
     }
   ],
   "build": {
     "content": [
       {
         "files": [
-          "src/**/*.cs",
-          "src/**/*.vb"
+          "src/**/*.cs"
         ],
         "src": "src",
         "dest": "api"
@@ -35,33 +27,5 @@
     "globalMetadata": {
       "_appTitle": "Ground: Uplink and Downlink",
       "_disableContribution": true
-    },
-    "fileMetadata": [
-      {
-        "src": "**/*.md",
-        "dest": "",
-        "key": "is_index",
-        "value": true
-      }
-    ],
-    "template": [
-      "default"
-    ]
-  },
-  "template": {
-    "name": "default",
-    "fallbackFolders": [
-      "_shared"
-    ]
-  },
-  "pdf": {
-    "strategy": "strategy",
-    "pdfDocsets": [
-      {
-        "src": "docfx_project",
-        "dest": "apidoc"
-      }
-    ],
-    "dest": "pdf"
-  }
+    }
 }
