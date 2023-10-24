@@ -5,29 +5,24 @@ name: Update Documentation
 on: push
 jobs:
   git-auto-commit:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Install .NET Core
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+        
+    - name: Install Docfx
+    - run: dotnet tool update -g docfx
 
-    - name: Setup DocFX
-      uses: crazy-max/ghaction-chocolatey@v1
-      with:
-        args: install docfx
-
-    - name: DocFX Build
-      #working-directory: docs
-      run: docfx docfx.json
-      continue-on-error: false
+    - name: Run Dotfx 
+    - run: docfx CSCN73030-ProjectV-UplinkDownlink-GroundStation/docfx.json
       
-    - name: Publish
-      if: github.event_name == 'push'
+    - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
