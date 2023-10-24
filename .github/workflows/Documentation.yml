@@ -1,6 +1,7 @@
 name: Update Documentation
-
 on: push
+permissions:
+  contents: write
 jobs:
   publish-docs:
     runs-on: ubuntu-latest
