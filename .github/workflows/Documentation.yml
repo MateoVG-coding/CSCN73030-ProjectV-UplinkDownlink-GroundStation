@@ -13,7 +13,7 @@ jobs:
         dotnet-version: 7.x
 
     - run: dotnet tool update -g docfx
-    - run: docfx CSCN73030-ProjectV-UplinkDownlink-GroundStation/docfx.json
+    - run: docfx docfx.json
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
