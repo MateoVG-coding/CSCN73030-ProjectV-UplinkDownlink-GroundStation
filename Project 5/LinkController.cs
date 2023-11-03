@@ -7,7 +7,7 @@ namespace link
         public void CreateEndpoints()
         {
             //list of all endpoints
-            string[] endpoints = { "http://localhost:2400/send/", "http://localhost:2400/receive/", "http://localhost:2400/status/" };
+            string[] endpoints = { "http://*:8080/send/", "http://*:8080/receive/", "http://*:8080/status/" };
 
             //create the actual listener
             HttpListener listener = new HttpListener();
