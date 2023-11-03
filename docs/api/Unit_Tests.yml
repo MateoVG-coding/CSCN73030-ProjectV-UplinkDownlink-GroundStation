@@ -1,0 +1,30 @@
+### YamlMime:ManagedReference
+items:
+- uid: Unit_Tests
+  commentId: N:Unit_Tests
+  id: Unit_Tests
+  children:
+  - Unit_Tests.GroundSenderTests
+  - Unit_Tests.SpaceSenderTests
+  langs:
+  - csharp
+  - vb
+  name: Unit_Tests
+  nameWithType: Unit_Tests
+  fullName: Unit_Tests
+  type: Namespace
+  assemblies:
+  - Unit Tests
+references:
+- uid: Unit_Tests.GroundSenderTests
+  commentId: T:Unit_Tests.GroundSenderTests
+  href: Unit_Tests.GroundSenderTests.html
+  name: GroundSenderTests
+  nameWithType: GroundSenderTests
+  fullName: Unit_Tests.GroundSenderTests
+- uid: Unit_Tests.SpaceSenderTests
+  commentId: T:Unit_Tests.SpaceSenderTests
+  href: Unit_Tests.SpaceSenderTests.html
+  name: SpaceSenderTests
+  nameWithType: SpaceSenderTests
+  fullName: Unit_Tests.SpaceSenderTests

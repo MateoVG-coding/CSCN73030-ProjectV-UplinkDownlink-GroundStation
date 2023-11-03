@@ -25,7 +25,7 @@ namespace Project_5
             return true;
         }
 
-        public static String PeekAtAddress_Stub(String payload)
+        public static String PeekAtAddress_Stub()
         {
             return "Test_Address";
         }
