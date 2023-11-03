@@ -18,7 +18,7 @@ class DownLink
     private String PeekAtAddress(String payload)
     {
         //returns "Test_Address"
-        return Downlink_Stubs.PeekAtAddress_Stub(payload);
+        return Downlink_Stubs.PeekAtAddress_Stub();
     }
 
     public void InitSender()

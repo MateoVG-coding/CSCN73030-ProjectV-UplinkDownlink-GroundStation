@@ -17,7 +17,7 @@ namespace Integration_Tests_SpaceSender
             var sender = new SpaceSender("test");
 
             //Act
-            bool methodReturnStatus = sender.SendTransmission(ref testPayload);
+            bool methodReturnStatus = sender.SendTransmission(testPayload);
 
             //Assert
             Assert.IsTrue(methodReturnStatus);
@@ -31,7 +31,7 @@ namespace Integration_Tests_SpaceSender
             var sender = new SpaceSender_Exception_OutOfMemory("test");
 
             //Act
-            bool testReturnValue = sender.SendTransmission(ref testPayload);
+            bool testReturnValue = sender.SendTransmission(testPayload);
 
             //Assert
             Assert.IsFalse(testReturnValue);
@@ -44,7 +44,7 @@ namespace Integration_Tests_SpaceSender
             var sender = new SpaceSender_Exceptions("test");
 
             //Act
-            bool testReturnValue = sender.SendTransmission(ref testPayload);
+            bool testReturnValue = sender.SendTransmission(testPayload);
 
 
             //Assert

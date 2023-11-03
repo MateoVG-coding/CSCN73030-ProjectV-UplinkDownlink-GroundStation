@@ -42,7 +42,7 @@ public class SpaceSender_Exceptions
         return status;
     }
 
-    public void SendTransmission(string jsonData)
+    public bool SendTransmission(string jsonData)
     {
         lock (bufferLock)
         {
@@ -63,13 +63,14 @@ public class SpaceSender_Exceptions
             }
             catch (ThreadStateException)
             {
-                return;
+                return false;
             }
             catch (OutOfMemoryException)
             {
-                return;
+                return false;
             }
         }
+        return true;
     }
 
     private async void StartSendThread()
