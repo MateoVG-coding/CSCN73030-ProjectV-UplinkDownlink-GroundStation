@@ -140,13 +140,21 @@ public class GroundSender
             {
                 StartSendThread();
             });
-
         }
 
         if (!transmissionManager.IsAlive)
         {
             if (transmissionStatus)
-                transmissionManager.Join();
+            {
+                try
+                {
+                    transmissionManager.Join();
+                }
+                catch (ThreadStateException) { }
+                catch (ThreadInterruptedException) { }
+                
+            }
+                
             try
             {
                 transmissionManager = new Thread(delegate ()
