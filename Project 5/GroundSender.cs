@@ -87,10 +87,8 @@ public class GroundSender
 #if DEBUG
                     response = GroundSender_Stubs.HttpRequest_Stub();
 #else
-
                     response = await client.PostAsync(targetURL, content);
 #endif
-
                     //Http request sends json string that was dequeued
                     if (response.IsSuccessStatusCode)
                         transmissionStatus = true;
