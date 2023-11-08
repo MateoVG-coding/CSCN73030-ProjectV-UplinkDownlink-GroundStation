@@ -20,7 +20,7 @@ namespace link
             listener.Start();
             Console.WriteLine(listener.ToString());
 
-            while (true)    //REWORK THIS TO BE ABLE
+            while (true)    //REWORK THIS TO BE ABLE TO BE EXITED. ALSO THIS IS UNTESTABLE BECAUSE IT IS INFINITE
             {
                 //wait and recieve incoming requests.
                 HttpListenerContext context = listener.GetContext();
