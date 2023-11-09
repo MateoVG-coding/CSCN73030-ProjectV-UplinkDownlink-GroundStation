@@ -49,5 +49,10 @@ namespace Project_5
         {
             return "Test_Address";
         }
+
+        public static bool ReadyToTransmit_Stub()
+        {
+            return true;
+        }
     }
 }

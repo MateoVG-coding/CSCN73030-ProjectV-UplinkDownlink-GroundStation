@@ -19,12 +19,12 @@ class Uplink
 
     private bool ReadytoTransmit(ref GroundSender sender)
     {
-
+        return Uplink_Stubs.ReadyToTransmit_Stub();
     }
 
     public bool AddToQueue(String payload)
     {
-
+        return Uplink_Stubs.AddToQueue_Stub(payload);
     }
 
     public void Clear()

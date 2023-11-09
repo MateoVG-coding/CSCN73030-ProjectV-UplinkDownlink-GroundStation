@@ -15,20 +15,20 @@ class DownLink
     Mutex bufferLock = new Mutex(false);
     DownLink(String address, String passThroughEndPoint, String groundStationEndPoint)
     {
-            }
+    }
 
     private bool ReadytoTransmit(ref GroundSender sender)
     {
-        
+        return Downlink_Stubs.ReadyToTransmit_Stub();
     }
 
     public bool AddToQueue(String payload)
     {
-        
+        return Downlink_Stubs.AddToQueue_Stub(payload);
     }
 
     public void Clear()
     {
-        
+
     }
 }

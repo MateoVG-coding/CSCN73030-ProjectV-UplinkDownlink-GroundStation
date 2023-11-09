@@ -39,6 +39,21 @@ namespace Project_5
         {
             return "Test_Address";
         }
+
+        public static bool ReadyToTransmit_Stub()
+        {
+            return true;
+        }
+
+        public static void StartSendTransmission_Throws_OutOfMemoryException()
+        {
+            throw new OutOfMemoryException();
+        }
+
+        public static void StartSendTransmission_Throws_ThreadStateException()
+        {
+            throw new ThreadStateException();
+        }
     }
 
 }
