@@ -27,6 +27,18 @@ namespace Project_5
             return transmissions;
         }
 
+        public static void HttpRequest_Throws_HttpRequestException_Stub()
+        {
+            throw new HttpRequestException();
+        }
+
+        public static void StartSendTransmission_Stub()
+        {
+            //Do nothing
+        }
+
+
+
         public static void StartSendTransmission_Throws_OutOfMemoryException()
         {
             throw new OutOfMemoryException();
