@@ -14,14 +14,30 @@ public class SpaceSender
     private string targetURL;
     private Thread? transmissionManager_Ping;
 
-    public SpaceSender(string targetURL)
+    public SpaceSender(string targetURL, ref Queue<String> payloads, ref Mutex queuelock)
     {
         this.targetURL = targetURL;
-        transmissionQueue = new Queue<string>();
+        transmissionQueue = payloads;
         client = new HttpClient();
         transmissionManager = new Thread(StartSendThread);
         transmissionManager_Ping = new Thread(StartPingThread);
-        bufferLock = new Mutex();
+        bufferLock = queuelock;
+    }
+
+    private String PeekAtAddress()
+    {
+        String nextToSend = String.Empty;
+
+#if DEBUG
+
+        nextToSend = Uplink_Stubs.PeekAtAddress_Stub();
+#else
+        bufferLock.WaitOne();
+        nextToSend = transmissionQueue.Peek();
+        bufferLock.ReleaseMutex();
+#endif
+
+        return nextToSend;
     }
 
     public bool IsBufferEmpty()
@@ -42,17 +58,43 @@ public class SpaceSender
         return status;
     }
 
-    public void SendTransmission(string jsonData)
+    public bool SendTransmission(string jsonData)
     {
-        lock (bufferLock)
+        try
         {
+            bufferLock.WaitOne();
             transmissionQueue.Enqueue(jsonData);
+            bufferLock.ReleaseMutex();
+        }
+        catch (ApplicationException)
+        {
+            return false;
+        }
+        catch (ObjectDisposedException)
+        {
+            return false;
+        }
+
+        if (transmissionManager == null)
+        {
+            transmissionManager = new Thread(delegate ()
+            {
+                StartSendThread();
+            });
+
         }
 
         if (!transmissionManager.IsAlive)
         {
             if (TransmissionStatus)
-                transmissionManager.Join();
+            {
+                try
+                {
+                    transmissionManager.Join();
+                }
+                catch (ThreadStateException) { }
+                catch (ThreadInterruptedException) { }
+            }
             try
             {
                 transmissionManager = new Thread(delegate ()
@@ -63,13 +105,14 @@ public class SpaceSender
             }
             catch (ThreadStateException)
             {
-                return;
+                return true;
             }
             catch (OutOfMemoryException)
             {
-                return;
+                return true;
             }
         }
+        return true;
     }
 
     private async void StartSendThread()
@@ -79,6 +122,7 @@ public class SpaceSender
         client = new HttpClient();
         HttpContent? content = null;
         HttpResponseMessage? response = null;
+        String addressOfDestination = String.Empty;
 
         while (transmissionQueue.Count > 0)
         {
@@ -86,9 +130,22 @@ public class SpaceSender
             if (TransmissionStatus)
             {
 
-                bufferLock.WaitOne();
-                nextToSend = transmissionQueue.Dequeue();
-                bufferLock.ReleaseMutex();
+                addressOfDestination = PeekAtAddress();
+
+                if (addressOfDestination.Equals(targetURL))
+                {
+                    bufferLock.WaitOne();
+
+                    try
+                    {
+                        nextToSend = transmissionQueue.Dequeue();
+                    }catch(InvalidOperationException ex)
+                    {
+                        nextToSend = null;
+                    }
+                    
+                    bufferLock.ReleaseMutex();
+                }
             }
 #endif       
             if (nextToSend != null)
@@ -155,12 +212,28 @@ public class SpaceSender
         }
     }
 
-    public void SendPing()
+    public bool SendPing()
     {
+        if (transmissionManager_Ping == null)
+        {
+            transmissionManager_Ping = new Thread(delegate ()
+            {
+                StartPingThread();
+            });
+
+        }
+
         if (!transmissionManager_Ping.IsAlive)
         {
             if (TransmissionStatus)
-                transmissionManager_Ping.Join();
+            {
+                try
+                {
+                    transmissionManager_Ping.Join();
+                }
+                catch (ThreadStateException) { }
+                catch (ThreadInterruptedException) { }
+            }
             try
             {
                 transmissionManager_Ping = new Thread(delegate ()
@@ -171,12 +244,13 @@ public class SpaceSender
             }
             catch (ThreadStateException)
             {
-                return;
+                return false;
             }
             catch (OutOfMemoryException)
             {
-                return;
+                return false;
             }
         }
+        return true;
     }
 }

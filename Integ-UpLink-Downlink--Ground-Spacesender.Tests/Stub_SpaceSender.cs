@@ -21,5 +21,33 @@ namespace Project_5
         {
             return true;
         }
+
+        public static void StartSendTransmission_Stub()
+        {
+            //Do nothing
+        }
+
+        public static void StartSendTransmission_Throws_OutOfMemoryException()
+        {
+            throw new OutOfMemoryException();
+        }
+
+        public static void StartSendTransmission_Throws_ThreadStateException()
+        {
+            throw new ThreadStateException();
+        }
+    }
+
+    public static class Uplink_Stubs
+    {
+        public static bool AddToQueue_Stub(String payload)
+        {
+            return true;
+        }
+
+        public static String PeekAtAddress_Stub()
+        {
+            return "Test_Address";
+        }
     }
 }

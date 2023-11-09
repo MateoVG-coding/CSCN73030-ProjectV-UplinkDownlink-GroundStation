@@ -17,9 +17,32 @@ namespace Project_5
             return response;
         }
 
+        public static Queue<String> GetFakedTransmissionQuueue()
+        {
+            Queue<String> transmissions = new Queue<String>();
+            transmissions.Enqueue("testTransmissions1");
+            transmissions.Enqueue("testTransmissions2");
+            transmissions.Enqueue("testTransmissions3");
+
+            return transmissions;
+        }
+
         public static bool GetLinkStatus_Stub()
         {
             return true;
+        }
+    }
+
+    public static class Uplink_Stubs
+    {
+        public static bool AddToQueue_Stub(String payload)
+        {
+            return true;
+        }
+
+        public static String PeekAtAddress_Stub()
+        {
+            return "Test_Address";
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.AutoMock;
+using Project_5;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading;
 
 namespace Unit_Tests
@@ -10,15 +12,19 @@ namespace Unit_Tests
     [TestClass]
     public class SpaceSenderTests
     {
+        String testJsonString = "This is a json test string the contents matters not";
+        String testURL = "http://192.168.1.10/SendData";
+        Queue<String> queue = Stub_SpaceSender.GetFakedTransmissionQuueue();
+        Mutex bufferlock = new Mutex();
+
         [TestMethod]
         public void SpaceSender_SendTransmission_AddsToQueue()
         {
             // Arrange
-            var sender = new SpaceSender("http://example.com");
-            var testData = "test data";
+            var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
 
             // Act
-            sender.SendTransmission(testData);
+            sender.SendTransmission(testJsonString);
 
             // Assert
             Assert.IsFalse(sender.IsBufferEmpty());
@@ -28,11 +34,10 @@ namespace Unit_Tests
         public async Task SpaceSender_SendTransmission_StartsThreadIfNotRunning()
         {
             // Arrange
-            var sender = new SpaceSender("http://example.com");
-            var testData = "Test Data";
+            var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
 
             // Act
-            sender.SendTransmission(testData);
+            sender.SendTransmission(testJsonString);
 
             await Task.Delay(5000); // Wait for up to 1 second
 
@@ -45,36 +50,37 @@ namespace Unit_Tests
         public async Task SpaceSender_SendTransmission_DoesNotStartThreadIfAlreadyRunning()
         {
             // Arrange
-            var sender = new SpaceSender("http://example.com");
-            var testData1 = "test data 1";
-            var testData2 = "test data 2";
+            var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
 
             // Act
-            sender.SendTransmission(testData1);
-            await Task.Delay(5000); // Give the thread some time to start.
-            sender.SendTransmission(testData2);
+            for (int i = 0; i < 10; i++)
+            {
+                sender.SendTransmission(testJsonString);
+            }
+
+            await Task.Delay(5000);
 
             // Assert
             Assert.IsTrue(sender.IsRunning()); // The thread should only start once.
         }
 
         [TestMethod]
-        public void SpaceSender_IsBufferEmpty_ReturnsTrueWhenEmpty()
+        public void SpaceSender_IsBufferEmpty_ReturnsFalseWhenNotEmpty()
         {
             // Arrange
-            var sender = new SpaceSender("http://example.com");
+            var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
 
             // Act
             var isEmpty = sender.IsBufferEmpty();
 
             // Assert
-            Assert.IsTrue(isEmpty);
+            Assert.IsFalse(isEmpty);
         }
 
         [TestMethod]
         public async Task SpaceSender_SendPing_SetStatusToTrueWhenPingResponseIsReceived()
         {
-            SpaceSender sender = new SpaceSender("http://example.com");
+            var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
             Assert.IsFalse(sender.TransmissionStatus); 
 
             sender.SendPing();
