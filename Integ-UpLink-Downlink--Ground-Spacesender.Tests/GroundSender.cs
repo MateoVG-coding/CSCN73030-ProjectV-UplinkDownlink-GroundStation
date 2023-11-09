@@ -13,19 +13,31 @@ public class GroundSender
     Mutex bufferLock;
     public bool transmissionStatus { get; set; }
     String targetURL;
-    
 
-    public GroundSender(String target)
+
+    public GroundSender(String target, ref Queue<String> payloads, ref Mutex queuelock)
     {
-        bufferLock = new Mutex();
+        bufferLock = queuelock;
         transmissionStatus = false;
         client = new HttpClient();
-        transmissionQueue = new Queue<String>();
+        transmissionQueue = payloads;
         targetURL = target;
-        transmissionManager = new Thread(delegate ()
-        {
-            StartSendThread();
-        });
+    }
+
+    private String PeekAtAddress()
+    {
+        String nextToSend = String.Empty;
+        //returns "Test_Address"
+#if DEBUG
+
+        nextToSend = Downlink_Stubs.PeekAtAddress_Stub();
+#else
+        bufferLock.WaitOne();
+        nextToSend = transmissionQueue.Peek();
+        bufferLock.ReleaseMutex();
+#endif
+
+        return nextToSend;
     }
 
     private async void StartSendThread()
@@ -34,6 +46,7 @@ public class GroundSender
         client = new HttpClient();
         HttpContent? content = null;
         HttpResponseMessage? response = null;
+        String addressOfDestination = String.Empty;
 
         transmissionStatus = true;
 
@@ -43,11 +56,24 @@ public class GroundSender
             if (transmissionStatus)
             {
 
-                bufferLock.WaitOne();
-                nextToSend = transmissionQueue.Dequeue();
-                bufferLock.ReleaseMutex();
+                addressOfDestination = PeekAtAddress();
+
+                if (addressOfDestination.Equals(targetURL))
+                {
+                    bufferLock.WaitOne();
+
+                    try
+                    {
+                        nextToSend = transmissionQueue.Dequeue();
+                    }catch(InvalidOperationException ex)
+                    {
+                        nextToSend = null;
+                    }
+                    
+                    bufferLock.ReleaseMutex();
+                }
             }
-#endif       
+#endif
             if (nextToSend != null)
             {
                 content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
@@ -86,17 +112,19 @@ public class GroundSender
         return status;
     }
 
-    public bool SendTransmission(ref String jsonData) 
+    public bool SendTransmission(ref String jsonData)
     {
         try
         {
             bufferLock.WaitOne();
             transmissionQueue.Enqueue(jsonData);
             bufferLock.ReleaseMutex();
-        }catch(ApplicationException)
+        }
+        catch (ApplicationException)
         {
             return false;
-        }catch(ObjectDisposedException)
+        }
+        catch (ObjectDisposedException)
         {
             return false;
         }
@@ -108,13 +136,21 @@ public class GroundSender
             {
                 StartSendThread();
             });
-
         }
 
         if (!transmissionManager.IsAlive)
         {
             if (transmissionStatus)
-                transmissionManager.Join();
+            {
+                try
+                {
+                    transmissionManager.Join();
+                }
+                catch (ThreadStateException) { }
+                catch (ThreadInterruptedException) { }
+
+            }
+
             try
             {
                 transmissionManager = new Thread(delegate ()

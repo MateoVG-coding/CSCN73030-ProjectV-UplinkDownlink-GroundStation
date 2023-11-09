@@ -17,24 +17,14 @@ namespace Project_5
             return response;
         }
 
-        public static void StartSendTransmission_Stub()
+        public static Queue<String> GetFakedTransmissionQuueue()
         {
-            //Do nothing
-        }
+            Queue<String> transmissions = new Queue<String>();
+            transmissions.Enqueue("testTransmissions1");
+            transmissions.Enqueue("testTransmissions2");
+            transmissions.Enqueue("testTransmissions3");
 
-        public static void HttpRequest_Throws_HttpRequestException_Stub()
-        {
-            throw new HttpRequestException();
-        }
-
-        public static void StartSendTransmission_Throws_OutOfMemoryException()
-        {
-            throw new OutOfMemoryException();
-        }
-
-        public static void StartSendTransmission_Throws_ThreadStateException()
-        {
-            throw new ThreadStateException();
+            return transmissions;
         }
     }
 
@@ -45,7 +35,7 @@ namespace Project_5
             return true;
         }
 
-        public static String PeekAtAddress_Stub(String payload)
+        public static String PeekAtAddress_Stub()
         {
             return "Test_Address";
         }

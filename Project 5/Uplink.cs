@@ -1,32 +1,30 @@
 ﻿
-
 using Project_5;
+using System.Linq.Expressions;
 
-class UpLink
+class Uplink
 {
-    private SpaceSender sender;
-    private string enpoint;
-    private string ipAddress;
-    bool linkStatus;
-
-    UpLink(String ip, String enpoint)
+    private const int QUEUESIZE = 10;
+    private Queue<String> payloadQueue;
+    private GroundSender senderPassThrough;
+    private GroundSender senderGroundStation;
+    private String passThroughEndPoint;
+    private String passThroughAddress;
+    private String groundStationAddress;
+    private String groundStationEndPoint;
+    Mutex bufferLock = new Mutex(false);
+    Uplink(String address, String passThroughEndPoint, String groundStationEndPoint)
     {
-
     }
 
-    public void InitSender()
+    private bool ReadytoTransmit(ref GroundSender sender)
     {
 
     }
 
     public bool AddToQueue(String payload)
     {
-        return Downlink_Stubs.AddToQueue_Stub(payload);
-    }
 
-    public bool GetLinkStatus()
-    {
-       return Stub_SpaceSender.GetLinkStatus_Stub();
     }
 
     public void Clear()
