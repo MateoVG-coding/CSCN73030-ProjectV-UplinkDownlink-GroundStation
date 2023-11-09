@@ -60,6 +60,7 @@ public class SpaceSender_Exception_OutOfMemory
                     StartSendThread();
                 });
                 transmissionManager.Start();
+                TransmissionStatus = true;
             }
             catch (ThreadStateException)
             {

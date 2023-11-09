@@ -161,7 +161,7 @@ public class GroundSender_Exception_ThreadStateException
                     StartSendThread();
                 });
                 transmissionManager.Start();
-
+                transmissionStatus = true;
             }
             catch (ThreadStateException)
             {

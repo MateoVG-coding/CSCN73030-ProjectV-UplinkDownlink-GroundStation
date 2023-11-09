@@ -159,7 +159,7 @@ public class GroundSender_Exception_HttpRequestException
                     StartSendThread();
                 });
                 transmissionManager.Start();
-
+                transmissionStatus = true;
             }
             catch (ThreadStateException)
             {

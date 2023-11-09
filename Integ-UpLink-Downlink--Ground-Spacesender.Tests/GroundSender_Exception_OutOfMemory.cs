@@ -160,7 +160,7 @@ public class GroundSender_Exception_OutOfMemory
                     StartSendThread();
                 });
                 transmissionManager.Start();
-
+                transmissionStatus = true;
             }
             catch (ThreadStateException)
             {

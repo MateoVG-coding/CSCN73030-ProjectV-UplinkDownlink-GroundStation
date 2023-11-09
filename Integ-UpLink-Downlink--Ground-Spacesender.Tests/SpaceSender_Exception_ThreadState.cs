@@ -60,6 +60,7 @@ public class SpaceSender_Exceptions
                     StartSendThread();
                 });
                 transmissionManager.Start();
+                TransmissionStatus = true;
             }
             catch (ThreadStateException)
             {

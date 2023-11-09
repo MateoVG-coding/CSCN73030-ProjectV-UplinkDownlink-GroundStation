@@ -1,6 +1,8 @@
 using link;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Project_5;
+using System.Runtime.CompilerServices;
 using Xunit;
 
 namespace Integration_Tests
@@ -13,7 +15,10 @@ namespace Integration_Tests
         {
             //Arrange
             String testPayload = "testPayload";
-            var sender = new GroundSender("test");
+            String testURL = "http://192.168.1.10/SendData";
+            Queue<String> queue = GroundSender_Stubs.GetFakedTransmissionQuueue();
+            Mutex bufferlock = new Mutex();
+            var sender = new GroundSender(testURL, ref queue, ref bufferlock);
 
             //Act
             bool methodReturnStatus = sender.SendTransmission(ref testPayload);
@@ -26,7 +31,10 @@ namespace Integration_Tests
         {
             //Arrange
             String testPayload = "testPayload";
-            var sender = new GroundSender_Exception_OutOfMemory("test");
+            String testURL = "http://192.168.1.10/SendData";
+            Queue<String> queue = GroundSender_Stubs.GetFakedTransmissionQuueue();
+            Mutex bufferlock = new Mutex();
+            var sender = new GroundSender_Exception_OutOfMemory(testURL, ref queue, ref bufferlock);
 
             //Act
             bool testReturnValue = sender.SendTransmission(ref testPayload);
@@ -39,7 +47,10 @@ namespace Integration_Tests
         {
             //Arrange
             String testPayload = "testPayload";
-            var sender = new GroundSender_Exception_ThreadStateException("test");
+            String testURL = "http://192.168.1.10/SendData";
+            Queue<String> queue = GroundSender_Stubs.GetFakedTransmissionQuueue();
+            Mutex bufferlock = new Mutex();
+            var sender = new GroundSender_Exception_ThreadStateException(testURL, ref queue, ref bufferlock);
 
             //Act
             bool testReturnValue = sender.SendTransmission(ref testPayload);
@@ -54,14 +65,34 @@ namespace Integration_Tests
         {
             //Arrange
             String testPayload = "testPayload";
-            var sender = new GroundSender_Exception_HttpRequestException("test");
+            String testURL = "http://192.168.1.10/SendData";
+            Queue<String> queue = GroundSender_Stubs.GetFakedTransmissionQuueue();
+            Mutex bufferlock = new Mutex();
+            var sender = new GroundSender(testURL, ref queue, ref bufferlock);
 
             //Act
-            sender.StartSendThread();
+            sender.SendTransmission(ref testPayload);
             bool testTransmissionStatus = sender.transmissionStatus;
 
             //Assert
             Assert.IsTrue(testTransmissionStatus);
+        }
+
+        public void GroundSender_StartTranmission_Starts_Transmission_Throws_HttpRequestException()
+        {
+            //Arrange
+            String testPayload = "testPayload";
+            String testURL = "http://192.168.1.10/SendData";
+            Queue<String> queue = GroundSender_Stubs.GetFakedTransmissionQuueue();
+            Mutex bufferlock = new Mutex();
+            var sender = new GroundSender_Exception_HttpRequestException(testURL, ref queue, ref bufferlock);
+
+            //Act
+            bool testReturnValue = sender.SendTransmission(ref testPayload);
+
+
+            //Assert
+            Assert.IsFalse(testReturnValue);
         }
     }
 }
