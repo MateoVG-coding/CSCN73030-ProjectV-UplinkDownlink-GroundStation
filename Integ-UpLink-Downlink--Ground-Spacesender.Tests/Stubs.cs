@@ -26,6 +26,16 @@ namespace Project_5
 
             return transmissions;
         }
+
+        public static void StartSendTransmission_Throws_OutOfMemoryException()
+        {
+            throw new OutOfMemoryException();
+        }
+
+        public static void StartSendTransmission_Throws_ThreadStateException()
+        {
+            throw new ThreadStateException();
+        }
     }
 
     public static class Downlink_Stubs
@@ -45,15 +55,6 @@ namespace Project_5
             return true;
         }
 
-        public static void StartSendTransmission_Throws_OutOfMemoryException()
-        {
-            throw new OutOfMemoryException();
-        }
-
-        public static void StartSendTransmission_Throws_ThreadStateException()
-        {
-            throw new ThreadStateException();
-        }
     }
 
 }
