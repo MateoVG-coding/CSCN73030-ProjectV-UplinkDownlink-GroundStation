@@ -24,7 +24,12 @@ class DownLink
 
     public bool AddToQueue(String payload)
     {
-        return Downlink_Stubs.AddToQueue_Stub(payload);
+        if (payloadQueue.Count >= QUEUESIZE)
+            return false;
+        bufferLock.WaitOne();
+        payloadQueue.Enqueue(payload);
+        bufferLock.ReleaseMutex();
+        return true;
     }
 
     public void Clear()
