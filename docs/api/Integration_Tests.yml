@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Integration_Tests
+  commentId: N:Integration_Tests
+  id: Integration_Tests
+  children:
+  - Integration_Tests.Tests
+  langs:
+  - csharp
+  - vb
+  name: Integration_Tests
+  nameWithType: Integration_Tests
+  fullName: Integration_Tests
+  type: Namespace
+  assemblies:
+  - Integ-UpLink-Downlink--Ground-Spacesender.Tests
+references:
+- uid: Integration_Tests.Tests
+  commentId: T:Integration_Tests.Tests
+  href: Integration_Tests.Tests.html
+  name: Tests
+  nameWithType: Tests
+  fullName: Integration_Tests.Tests

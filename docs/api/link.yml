@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: link
+  commentId: N:link
+  id: link
+  children:
+  - link.LinkController
+  langs:
+  - csharp
+  - vb
+  name: link
+  nameWithType: link
+  fullName: link
+  type: Namespace
+  assemblies:
+  - Project 5 Ground UD Link
+references:
+- uid: link.LinkController
+  commentId: T:link.LinkController
+  href: link.LinkController.html
+  name: LinkController
+  nameWithType: LinkController
+  fullName: link.LinkController

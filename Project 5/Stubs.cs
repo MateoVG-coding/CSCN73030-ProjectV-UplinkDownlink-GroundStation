@@ -16,6 +16,27 @@ namespace Project_5
             Thread.Sleep(500);
             return response;
         }
+
+        public static Queue<String> GetFakedTransmissionQuueue()
+        {
+            Queue<String> transmissions = new Queue<String>();
+            transmissions.Enqueue("testTransmissions1");
+            transmissions.Enqueue("testTransmissions2");
+            transmissions.Enqueue("testTransmissions3");
+
+            return transmissions;
+        }
+
+
+        public static void StartSendTransmission_Throws_OutOfMemoryException()
+        {
+            throw new OutOfMemoryException();
+        }
+
+        public static void StartSendTransmission_Throws_ThreadStateException()
+        {
+            throw new ThreadStateException();
+        }
     }
 
     public static class Downlink_Stubs
@@ -25,9 +46,14 @@ namespace Project_5
             return true;
         }
 
-        public static String PeekAtAddress_Stub(String payload)
+        public static String PeekAtAddress_Stub()
         {
             return "Test_Address";
+        }
+
+        public static bool ReadyToTransmit_Stub()
+        {
+            return true;
         }
     }
 

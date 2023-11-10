@@ -1,0 +1,507 @@
+### YamlMime:ManagedReference
+items:
+- uid: Unit_Tests.GroundSenderTests
+  commentId: T:Unit_Tests.GroundSenderTests
+  id: GroundSenderTests
+  parent: Unit_Tests
+  children:
+  - Unit_Tests.GroundSenderTests.GroundSender_Not_Added_Transmissions_Buffer_Is_Empty
+  - Unit_Tests.GroundSenderTests.GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent
+  - Unit_Tests.GroundSenderTests.GroundSender_Sending_Transmission_Fills_Transmission_Buffer
+  - Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True
+  - Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True
+  langs:
+  - csharp
+  - vb
+  name: GroundSenderTests
+  nameWithType: GroundSenderTests
+  fullName: Unit_Tests.GroundSenderTests
+  type: Class
+  source:
+    remote:
+      path: Unit Tests/GroundSender.Tests.cs
+      branch: master
+      repo: https://github.com/MateoVG-coding/CSCN73030-ProjectV-UplinkDownlink-GroundStation
+    id: GroundSenderTests
+    path: Unit Tests/GroundSender.Tests.cs
+    startLine: 5
+  assemblies:
+  - Unit Tests
+  namespace: Unit_Tests
+  syntax:
+    content: >-
+      [TestClass]
+
+      public class GroundSenderTests
+    content.vb: >-
+      <TestClass>
+
+      Public Class GroundSenderTests
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute
+    ctor: Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute.#ctor
+    arguments: []
+- uid: Unit_Tests.GroundSenderTests.GroundSender_Sending_Transmission_Fills_Transmission_Buffer
+  commentId: M:Unit_Tests.GroundSenderTests.GroundSender_Sending_Transmission_Fills_Transmission_Buffer
+  id: GroundSender_Sending_Transmission_Fills_Transmission_Buffer
+  parent: Unit_Tests.GroundSenderTests
+  langs:
+  - csharp
+  - vb
+  name: GroundSender_Sending_Transmission_Fills_Transmission_Buffer()
+  nameWithType: GroundSenderTests.GroundSender_Sending_Transmission_Fills_Transmission_Buffer()
+  fullName: Unit_Tests.GroundSenderTests.GroundSender_Sending_Transmission_Fills_Transmission_Buffer()
+  type: Method
+  source:
+    remote:
+      path: Unit Tests/GroundSender.Tests.cs
+      branch: master
+      repo: https://github.com/MateoVG-coding/CSCN73030-ProjectV-UplinkDownlink-GroundStation
+    id: GroundSender_Sending_Transmission_Fills_Transmission_Buffer
+    path: Unit Tests/GroundSender.Tests.cs
+    startLine: 11
+  assemblies:
+  - Unit Tests
+  namespace: Unit_Tests
+  syntax:
+    content: >-
+      [TestMethod]
+
+      public void GroundSender_Sending_Transmission_Fills_Transmission_Buffer()
+    content.vb: >-
+      <TestMethod>
+
+      Public Sub GroundSender_Sending_Transmission_Fills_Transmission_Buffer()
+  overload: Unit_Tests.GroundSenderTests.GroundSender_Sending_Transmission_Fills_Transmission_Buffer*
+  attributes:
+  - type: Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute
+    ctor: Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.#ctor
+    arguments: []
+- uid: Unit_Tests.GroundSenderTests.GroundSender_Not_Added_Transmissions_Buffer_Is_Empty
+  commentId: M:Unit_Tests.GroundSenderTests.GroundSender_Not_Added_Transmissions_Buffer_Is_Empty
+  id: GroundSender_Not_Added_Transmissions_Buffer_Is_Empty
+  parent: Unit_Tests.GroundSenderTests
+  langs:
+  - csharp
+  - vb
+  name: GroundSender_Not_Added_Transmissions_Buffer_Is_Empty()
+  nameWithType: GroundSenderTests.GroundSender_Not_Added_Transmissions_Buffer_Is_Empty()
+  fullName: Unit_Tests.GroundSenderTests.GroundSender_Not_Added_Transmissions_Buffer_Is_Empty()
+  type: Method
+  source:
+    remote:
+      path: Unit Tests/GroundSender.Tests.cs
+      branch: master
+      repo: https://github.com/MateoVG-coding/CSCN73030-ProjectV-UplinkDownlink-GroundStation
+    id: GroundSender_Not_Added_Transmissions_Buffer_Is_Empty
+    path: Unit Tests/GroundSender.Tests.cs
+    startLine: 26
+  assemblies:
+  - Unit Tests
+  namespace: Unit_Tests
+  syntax:
+    content: >-
+      [TestMethod]
+
+      public void GroundSender_Not_Added_Transmissions_Buffer_Is_Empty()
+    content.vb: >-
+      <TestMethod>
+
+      Public Sub GroundSender_Not_Added_Transmissions_Buffer_Is_Empty()
+  overload: Unit_Tests.GroundSenderTests.GroundSender_Not_Added_Transmissions_Buffer_Is_Empty*
+  attributes:
+  - type: Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute
+    ctor: Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.#ctor
+    arguments: []
+- uid: Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True
+  commentId: M:Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True
+  id: GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True
+  parent: Unit_Tests.GroundSenderTests
+  langs:
+  - csharp
+  - vb
+  name: GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True()
+  nameWithType: GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True()
+  fullName: Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True()
+  type: Method
+  source:
+    remote:
+      path: Unit Tests/GroundSender.Tests.cs
+      branch: master
+      repo: https://github.com/MateoVG-coding/CSCN73030-ProjectV-UplinkDownlink-GroundStation
+    id: GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True
+    path: Unit Tests/GroundSender.Tests.cs
+    startLine: 37
+  assemblies:
+  - Unit Tests
+  namespace: Unit_Tests
+  syntax:
+    content: >-
+      [TestMethod]
+
+      public void GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True()
+    content.vb: >-
+      <TestMethod>
+
+      Public Sub GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True()
+  overload: Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True*
+  attributes:
+  - type: Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute
+    ctor: Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.#ctor
+    arguments: []
+- uid: Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True
+  commentId: M:Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True
+  id: GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True
+  parent: Unit_Tests.GroundSenderTests
+  langs:
+  - csharp
+  - vb
+  name: GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True()
+  nameWithType: GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True()
+  fullName: Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True()
+  type: Method
+  source:
+    remote:
+      path: Unit Tests/GroundSender.Tests.cs
+      branch: master
+      repo: https://github.com/MateoVG-coding/CSCN73030-ProjectV-UplinkDownlink-GroundStation
+    id: GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True
+    path: Unit Tests/GroundSender.Tests.cs
+    startLine: 52
+  assemblies:
+  - Unit Tests
+  namespace: Unit_Tests
+  syntax:
+    content: >-
+      [TestMethod]
+
+      public void GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True()
+    content.vb: >-
+      <TestMethod>
+
+      Public Sub GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True()
+  overload: Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True*
+  attributes:
+  - type: Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute
+    ctor: Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.#ctor
+    arguments: []
+- uid: Unit_Tests.GroundSenderTests.GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent
+  commentId: M:Unit_Tests.GroundSenderTests.GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent
+  id: GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent
+  parent: Unit_Tests.GroundSenderTests
+  langs:
+  - csharp
+  - vb
+  name: GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent()
+  nameWithType: GroundSenderTests.GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent()
+  fullName: Unit_Tests.GroundSenderTests.GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent()
+  type: Method
+  source:
+    remote:
+      path: Unit Tests/GroundSender.Tests.cs
+      branch: master
+      repo: https://github.com/MateoVG-coding/CSCN73030-ProjectV-UplinkDownlink-GroundStation
+    id: GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent
+    path: Unit Tests/GroundSender.Tests.cs
+    startLine: 66
+  assemblies:
+  - Unit Tests
+  namespace: Unit_Tests
+  syntax:
+    content: >-
+      [TestMethod]
+
+      public void GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent()
+    content.vb: >-
+      <TestMethod>
+
+      Public Sub GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent()
+  overload: Unit_Tests.GroundSenderTests.GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent*
+  attributes:
+  - type: Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute
+    ctor: Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.#ctor
+    arguments: []
+references:
+- uid: Unit_Tests
+  commentId: N:Unit_Tests
+  href: Unit_Tests.html
+  name: Unit_Tests
+  nameWithType: Unit_Tests
+  fullName: Unit_Tests
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Unit_Tests.GroundSenderTests.GroundSender_Sending_Transmission_Fills_Transmission_Buffer*
+  commentId: Overload:Unit_Tests.GroundSenderTests.GroundSender_Sending_Transmission_Fills_Transmission_Buffer
+  href: Unit_Tests.GroundSenderTests.html#Unit_Tests_GroundSenderTests_GroundSender_Sending_Transmission_Fills_Transmission_Buffer
+  name: GroundSender_Sending_Transmission_Fills_Transmission_Buffer
+  nameWithType: GroundSenderTests.GroundSender_Sending_Transmission_Fills_Transmission_Buffer
+  fullName: Unit_Tests.GroundSenderTests.GroundSender_Sending_Transmission_Fills_Transmission_Buffer
+- uid: Unit_Tests.GroundSenderTests.GroundSender_Not_Added_Transmissions_Buffer_Is_Empty*
+  commentId: Overload:Unit_Tests.GroundSenderTests.GroundSender_Not_Added_Transmissions_Buffer_Is_Empty
+  href: Unit_Tests.GroundSenderTests.html#Unit_Tests_GroundSenderTests_GroundSender_Not_Added_Transmissions_Buffer_Is_Empty
+  name: GroundSender_Not_Added_Transmissions_Buffer_Is_Empty
+  nameWithType: GroundSenderTests.GroundSender_Not_Added_Transmissions_Buffer_Is_Empty
+  fullName: Unit_Tests.GroundSenderTests.GroundSender_Not_Added_Transmissions_Buffer_Is_Empty
+- uid: Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True*
+  commentId: Overload:Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True
+  href: Unit_Tests.GroundSenderTests.html#Unit_Tests_GroundSenderTests_GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True
+  name: GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True
+  nameWithType: GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True
+  fullName: Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True
+- uid: Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True*
+  commentId: Overload:Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True
+  href: Unit_Tests.GroundSenderTests.html#Unit_Tests_GroundSenderTests_GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True
+  name: GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True
+  nameWithType: GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True
+  fullName: Unit_Tests.GroundSenderTests.GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True
+- uid: Unit_Tests.GroundSenderTests.GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent*
+  commentId: Overload:Unit_Tests.GroundSenderTests.GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent
+  href: Unit_Tests.GroundSenderTests.html#Unit_Tests_GroundSenderTests_GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent
+  name: GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent
+  nameWithType: GroundSenderTests.GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent
+  fullName: Unit_Tests.GroundSenderTests.GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent

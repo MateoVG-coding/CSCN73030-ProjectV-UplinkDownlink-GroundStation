@@ -1,0 +1,37 @@
+### YamlMime:ManagedReference
+items:
+- uid: Project_5
+  commentId: N:Project_5
+  id: Project_5
+  children:
+  - Project_5.Downlink_Stubs
+  - Project_5.GroundSender_Stubs
+  - Project_5.Stub_SpaceSender
+  langs:
+  - csharp
+  - vb
+  name: Project_5
+  nameWithType: Project_5
+  fullName: Project_5
+  type: Namespace
+  assemblies:
+  - Project 5 Ground UD Link
+references:
+- uid: Project_5.GroundSender_Stubs
+  commentId: T:Project_5.GroundSender_Stubs
+  href: Project_5.GroundSender_Stubs.html
+  name: GroundSender_Stubs
+  nameWithType: GroundSender_Stubs
+  fullName: Project_5.GroundSender_Stubs
+- uid: Project_5.Downlink_Stubs
+  commentId: T:Project_5.Downlink_Stubs
+  href: Project_5.Downlink_Stubs.html
+  name: Downlink_Stubs
+  nameWithType: Downlink_Stubs
+  fullName: Project_5.Downlink_Stubs
+- uid: Project_5.Stub_SpaceSender
+  commentId: T:Project_5.Stub_SpaceSender
+  href: Project_5.Stub_SpaceSender.html
+  name: Stub_SpaceSender
+  nameWithType: Stub_SpaceSender
+  fullName: Project_5.Stub_SpaceSender
