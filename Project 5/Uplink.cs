@@ -41,8 +41,6 @@ class Uplink
 
     public void Clear()
     {
-        bufferLock.WaitOne();
-        payloadQueue.Clear();
-        bufferLock.ReleaseMutex();
+       
     }
 }
