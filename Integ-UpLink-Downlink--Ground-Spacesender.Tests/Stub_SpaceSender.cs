@@ -22,6 +22,16 @@ namespace Project_5
             return true;
         }
 
+        public static Queue<String> GetFakedTransmissionQuueue()
+        {
+            Queue<String> transmissions = new Queue<String>();
+            transmissions.Enqueue("testTransmissions1");
+            transmissions.Enqueue("testTransmissions2");
+            transmissions.Enqueue("testTransmissions3");
+
+            return transmissions;
+        }
+
         public static void StartSendTransmission_Stub()
         {
             //Do nothing

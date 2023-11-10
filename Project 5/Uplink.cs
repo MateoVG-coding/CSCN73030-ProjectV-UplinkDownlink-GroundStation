@@ -6,8 +6,8 @@ class Uplink
 {
     private const int QUEUESIZE = 10;
     private Queue<String> payloadQueue;
-    private GroundSender senderPassThrough;
-    private GroundSender senderGroundStation;
+    private SpaceSender senderPassThrough;
+    private SpaceSender senderSpaceStation;
     private String passThroughEndPoint;
     private String passThroughAddress;
     private String groundStationAddress;
@@ -15,20 +15,34 @@ class Uplink
     Mutex bufferLock = new Mutex(false);
     Uplink(String address, String passThroughEndPoint, String groundStationEndPoint)
     {
+        payloadQueue = new Queue<String>(QUEUESIZE);
+        this.passThroughAddress = address;
+        this.passThroughEndPoint = passThroughEndPoint;
+        this.groundStationAddress = address;
+        this.groundStationEndPoint = groundStationEndPoint;
+        senderSpaceStation = new SpaceSender(groundStationAddress + groundStationEndPoint, ref payloadQueue, ref bufferLock);
+        senderPassThrough = new SpaceSender(passThroughAddress + passThroughEndPoint, ref payloadQueue, ref bufferLock);
     }
 
-    private bool ReadytoTransmit(ref GroundSender sender)
+    private bool ReadytoTransmit(ref SpaceSender sender)
     {
-        return Uplink_Stubs.ReadyToTransmit_Stub();
+        return !senderSpaceStation.IsRunning() && !senderPassThrough.IsRunning();
     }
 
     public bool AddToQueue(String payload)
     {
-        return Uplink_Stubs.AddToQueue_Stub(payload);
+        if (payloadQueue.Count >= QUEUESIZE)
+            return false;
+        bufferLock.WaitOne();
+        payloadQueue.Enqueue(payload);
+        bufferLock.ReleaseMutex();
+        return true;
     }
 
     public void Clear()
     {
-
+        bufferLock.WaitOne();
+        payloadQueue.Clear();
+        bufferLock.ReleaseMutex();
     }
 }
