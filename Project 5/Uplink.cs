@@ -2,7 +2,7 @@
 using Project_5;
 using System.Linq.Expressions;
 
-class Uplink
+public class Uplink
 {
     private const int QUEUESIZE = 10;
     private Queue<String> payloadQueue;
@@ -13,7 +13,7 @@ class Uplink
     private String groundStationAddress;
     private String groundStationEndPoint;
     Mutex bufferLock = new Mutex(false);
-    Uplink(String address, String passThroughEndPoint, String groundStationEndPoint)
+    public Uplink(String address, String passThroughEndPoint, String groundStationEndPoint)
     {
         payloadQueue = new Queue<String>(QUEUESIZE);
         this.passThroughAddress = address;
