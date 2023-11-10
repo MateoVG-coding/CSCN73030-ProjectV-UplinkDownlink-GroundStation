@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text;
 using Project_5;
 
 namespace link
@@ -43,6 +44,8 @@ namespace link
         {
             HttpListenerRequest req = context.Request;
             HttpListenerResponse res = context.Response;
+
+            logging.logRequest(req);
 
             //handler for deciding how to process different requests
             switch (req.RawUrl)
@@ -104,5 +107,18 @@ namespace link
             output.Close();
         }
 
+    }
+}
+
+static class logging
+{
+    public static void logRequest(HttpListenerRequest req)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append(DateTime.Now);
+        sb.Append(" Recieved " + req.RawUrl + " from " + req.ToString() + '\n');
+        Console.Write(sb.ToString());
+        File.AppendAllText("./logs.txt", sb.ToString());
+        sb.Clear();
     }
 }
