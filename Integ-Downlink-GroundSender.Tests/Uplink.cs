@@ -2,31 +2,31 @@
 using Project_5;
 using System.Linq.Expressions;
 
-class DownLink
+class Uplink
 {
     private const int QUEUESIZE = 10;
     private Queue<String> payloadQueue;
-    private GroundSender senderPassThrough;
-    private GroundSender senderGroundStation;
+    private SpaceSender senderPassThrough;
+    private SpaceSender senderSpaceStation;
     private String passThroughEndPoint;
     private String passThroughAddress;
     private String groundStationAddress;
     private String groundStationEndPoint;
     Mutex bufferLock = new Mutex(false);
-    public DownLink(String address, String passThroughEndPoint, String groundStationEndPoint)
+    Uplink(String address, String passThroughEndPoint, String groundStationEndPoint)
     {
         payloadQueue = new Queue<String>(QUEUESIZE);
         this.passThroughAddress = address;
         this.passThroughEndPoint = passThroughEndPoint;
         this.groundStationAddress = address;
         this.groundStationEndPoint = groundStationEndPoint;
-        senderGroundStation = new GroundSender(groundStationAddress + groundStationEndPoint, ref payloadQueue, ref bufferLock);
-        senderPassThrough = new GroundSender(passThroughAddress + passThroughEndPoint, ref payloadQueue, ref bufferLock);
+        senderSpaceStation = new SpaceSender(groundStationAddress + groundStationEndPoint, ref payloadQueue, ref bufferLock);
+        senderPassThrough = new SpaceSender(passThroughAddress + passThroughEndPoint, ref payloadQueue, ref bufferLock);
     }
 
-    private bool ReadytoTransmit(ref GroundSender sender)
+    private bool ReadytoTransmit(ref SpaceSender sender)
     {
-        return Downlink_Stubs.ReadyToTransmit_Stub();
+        return !senderSpaceStation.IsRunning() && !senderPassThrough.IsRunning();
     }
 
     public bool AddToQueue(String payload)
@@ -36,19 +36,13 @@ class DownLink
         bufferLock.WaitOne();
         payloadQueue.Enqueue(payload);
         bufferLock.ReleaseMutex();
-
-        if (!senderGroundStation.isRunning())
-            senderGroundStation.SendTransmission();
-        else if (!senderPassThrough.isRunning())
-            senderPassThrough.SendTransmission();
-        else
-            return false;
-
         return true;
     }
 
     public void Clear()
     {
-
+        bufferLock.WaitOne();
+        payloadQueue.Clear();
+        bufferLock.ReleaseMutex();
     }
 }

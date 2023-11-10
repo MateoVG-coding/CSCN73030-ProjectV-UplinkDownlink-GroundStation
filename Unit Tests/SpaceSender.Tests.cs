@@ -18,26 +18,13 @@ namespace Unit_Tests
         Mutex bufferlock = new Mutex();
 
         [TestMethod]
-        public void SpaceSender_SendTransmission_AddsToQueue()
-        {
-            // Arrange
-            var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
-
-            // Act
-            sender.SendTransmission(testJsonString);
-
-            // Assert
-            Assert.IsFalse(sender.IsBufferEmpty());
-        }
-
-        [TestMethod]
         public async Task SpaceSender_SendTransmission_StartsThreadIfNotRunning()
         {
             // Arrange
             var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
 
             // Act
-            sender.SendTransmission(testJsonString);
+            sender.SendTransmission();
 
             await Task.Delay(5000); // Wait for up to 1 second
 
@@ -45,24 +32,6 @@ namespace Unit_Tests
             Assert.IsTrue(sender.TransmissionStatus); // Check the TransmissionStatus
         }
 
-
-        [TestMethod]
-        public async Task SpaceSender_SendTransmission_DoesNotStartThreadIfAlreadyRunning()
-        {
-            // Arrange
-            var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
-
-            // Act
-            for (int i = 0; i < 10; i++)
-            {
-                sender.SendTransmission(testJsonString);
-            }
-
-            await Task.Delay(5000);
-
-            // Assert
-            Assert.IsTrue(sender.IsRunning()); // The thread should only start once.
-        }
 
         [TestMethod]
         public void SpaceSender_IsBufferEmpty_ReturnsFalseWhenNotEmpty()
