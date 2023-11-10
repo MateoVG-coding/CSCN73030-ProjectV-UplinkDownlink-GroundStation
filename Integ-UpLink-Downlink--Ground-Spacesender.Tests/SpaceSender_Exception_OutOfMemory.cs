@@ -75,13 +75,13 @@ public class SpaceSender_Exception_OutOfMemory
             return false;
         }
 
+
         if (transmissionManager == null)
         {
             transmissionManager = new Thread(delegate ()
             {
                 StartSendThread();
             });
-
         }
 
         if (!transmissionManager.IsAlive)
@@ -94,9 +94,12 @@ public class SpaceSender_Exception_OutOfMemory
                 }
                 catch (ThreadStateException) { }
                 catch (ThreadInterruptedException) { }
+
             }
+
             try
             {
+                Stub_SpaceSender.StartSendTransmission_Throws_OutOfMemoryException();
                 transmissionManager = new Thread(delegate ()
                 {
                     StartSendThread();
@@ -106,11 +109,12 @@ public class SpaceSender_Exception_OutOfMemory
             }
             catch (ThreadStateException)
             {
-                return true;
+
+                return false;
             }
             catch (OutOfMemoryException)
             {
-                return true;
+                return false;
             }
         }
         return true;

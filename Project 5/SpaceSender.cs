@@ -106,11 +106,11 @@ public class SpaceSender
             }
             catch (ThreadStateException)
             {
-                return true;
+                return false;
             }
             catch (OutOfMemoryException)
             {
-                return true;
+                return false;
             }
         }
         return true;
