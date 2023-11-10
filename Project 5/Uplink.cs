@@ -26,7 +26,7 @@ class Uplink
 
     private bool ReadytoTransmit(ref SpaceSender sender)
     {
-        return !senderSpaceStation.IsRunning() && !senderPassThrough.IsRunning();
+        return Uplink_Stubs.ReadyToTransmit_Stub();
     }
 
     public bool AddToQueue(String payload)
