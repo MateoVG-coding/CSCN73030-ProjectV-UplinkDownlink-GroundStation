@@ -15,8 +15,9 @@ namespace link
         public void CreateEndpoints()
         {
             //list of all endpoints
-            string[] endpoints = { "http://*:8080/send/", "http://*:8080/receive/", "http://*:8080/status/" };
+            //string[] endpoints = { "http://*:8080/send/", "http://*:8080/receive/", "http://*:8080/status/" };
 
+            string[] endpoints = { "http://*:4080/send/", "http://*:4080/receive/", "http://*:4080/status/" };
             //create the actual listener
             HttpListener listener = new HttpListener();
 
@@ -45,7 +46,7 @@ namespace link
             HttpListenerRequest req = context.Request;
             HttpListenerResponse res = context.Response;
 
-            logging.logRequest(req);
+            logging.log(req);
 
             //handler for deciding how to process different requests
             switch (req.RawUrl)
@@ -112,13 +113,19 @@ namespace link
 
 static class logging
 {
-    public static void logRequest(HttpListenerRequest req)
+    public static void log(HttpListenerRequest req)
     {
         StringBuilder sb = new StringBuilder();
         sb.Append(DateTime.Now);
-        sb.Append(" Recieved " + req.RawUrl + " from " + req.ToString() + '\n');
+        sb.Append(" Recieved " + req.RawUrl + " from " + req.RemoteEndPoint + '\n');
         Console.Write(sb.ToString());
         File.AppendAllText("./logs.txt", sb.ToString());
         sb.Clear();
+    }
+
+    public static void log(string msg)
+    {
+        Console.Write(msg);
+        File.AppendAllText("./logs.txt", msg);
     }
 }
