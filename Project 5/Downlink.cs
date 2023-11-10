@@ -15,6 +15,13 @@ class DownLink
     Mutex bufferLock = new Mutex(false);
     DownLink(String address, String passThroughEndPoint, String groundStationEndPoint)
     {
+        payloadQueue = new Queue<String>(QUEUESIZE);
+        this.passThroughAddress = address;
+        this.passThroughEndPoint = passThroughEndPoint;
+        this.groundStationAddress = address;
+        this.groundStationEndPoint = groundStationEndPoint;
+        senderGroundStation = new GroundSender(groundStationAddress + groundStationEndPoint, ref payloadQueue, ref bufferLock);
+        senderPassThrough = new GroundSender(passThroughAddress + passThroughEndPoint, ref payloadQueue, ref bufferLock);
     }
 
     private bool ReadytoTransmit(ref GroundSender sender)
