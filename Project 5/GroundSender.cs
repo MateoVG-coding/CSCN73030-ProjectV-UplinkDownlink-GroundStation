@@ -1,9 +1,7 @@
-﻿
-using Project_5;
-using System.Collections;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Text;
+
 
 public class GroundSender
 {
@@ -12,42 +10,66 @@ public class GroundSender
     private Thread? transmissionManager;
     Mutex bufferLock;
     public bool transmissionStatus { get; set; }
-    String targetURL;
-    
+    Uri targetURI;
 
-    public GroundSender(String target , ref Queue<String> payloads, ref Mutex queuelock)
+    public GroundSender(String target, ref Queue<String> payloads, ref Mutex queuelock)
     {
         bufferLock = queuelock;
         transmissionStatus = false;
-        client = new HttpClient();
         transmissionQueue = payloads;
-        targetURL = target;
-        transmissionManager = new Thread(delegate ()
-        {
-            StartSendThread();
-        });
+        targetURI = new Uri(target);
+        client = new HttpClient();
+        client.BaseAddress = new Uri(targetURI.GetLeftPart(UriPartial.Authority));
     }
 
     private String PeekAtAddress()
     {
-        String nextToSend = String.Empty;
-        //returns "Test_Address"
-#if DEBUG
-       
-        nextToSend = Downlink_Stubs.PeekAtAddress_Stub();
-#else
+        String nextToSend;
+        String? modulePath = String.Empty;
+        const String PATHKEY = "path";
+        Uri destination;
+        String peekedAddress = String.Empty;
+
         bufferLock.WaitOne();
+        //add condition to let thread in in sending method
         nextToSend = transmissionQueue.Peek();
         bufferLock.ReleaseMutex();
-#endif
 
-        return nextToSend;
+        try
+        {
+            JObject json = JObject.Parse(nextToSend);
+            modulePath = json[PATHKEY].Value<string>();
+            if (modulePath != null)
+            {
+                destination = new Uri(modulePath);
+                peekedAddress = destination.GetLeftPart(UriPartial.Authority);
+            }
+
+            //may have to extract module ID from path to check if it belongs to CNDH or not. CNDH only receives telemetry. else, it is passthrough. ID = 3 send to smaeplace/this, ID = 2 send to smaeplace/that
+        }
+        catch (JsonReaderException ex)
+        {
+            Console.WriteLine("Failed to check target module");
+        }
+        catch (ArgumentNullException ex)
+        {
+            Console.WriteLine("malformed target address for ground");
+        }
+        catch (NullReferenceException ex)
+        {
+            Console.WriteLine("malformed target address for ground");
+        }
+        catch (UriFormatException ex)
+        {
+            Console.WriteLine("malformed target address for ground");
+        }
+
+        return peekedAddress;
     }
 
     private async void StartSendThread()
     {
         String? nextToSend = null;
-        client = new HttpClient();
         HttpContent? content = null;
         HttpResponseMessage? response = null;
         String addressOfDestination = String.Empty;
@@ -56,39 +78,37 @@ public class GroundSender
 
         while (transmissionQueue.Count > 0)
         {
-#if !DEBUG
+
             if (transmissionStatus)
             {
 
                 addressOfDestination = PeekAtAddress();
 
-                if (addressOfDestination.Equals(targetURL))
+                if (addressOfDestination.Equals(targetURI.GetLeftPart(UriPartial.Authority).ToString()))
                 {
                     bufferLock.WaitOne();
 
                     try
                     {
                         nextToSend = transmissionQueue.Dequeue();
-                    }catch(InvalidOperationException ex)
+                    }
+                    catch (InvalidOperationException ex)
                     {
                         nextToSend = null;
                     }
-                    
+
                     bufferLock.ReleaseMutex();
                 }
             }
-#endif
+
             if (nextToSend != null)
             {
                 content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
-                
+
                 try
                 {
-#if DEBUG
-                    response = GroundSender_Stubs.HttpRequest_Stub();
-#else
-                    response = await client.PostAsync(targetURL, content);
-#endif
+                    response = await client.PostAsync(targetURI.PathAndQuery, content);
+
                     //Http request sends json string that was dequeued
                     if (response.IsSuccessStatusCode)
                         transmissionStatus = true;
@@ -115,11 +135,9 @@ public class GroundSender
             status = false;
         return status;
     }
-      
 
-    public bool SendTransmission() 
+    public bool SendTransmission()
     {
-
         if (transmissionManager == null)
         {
             transmissionManager = new Thread(delegate ()
@@ -138,9 +156,8 @@ public class GroundSender
                 }
                 catch (ThreadStateException) { }
                 catch (ThreadInterruptedException) { }
-                
             }
-                
+
             try
             {
                 transmissionManager = new Thread(delegate ()
