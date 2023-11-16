@@ -18,9 +18,10 @@ namespace Unit_Tests
 
             //Arrange
             GroundSender sender = new GroundSender(testURL, ref queue, ref bufferlock);
+            queue.Enqueue(testJsonString);
 
             //Act
-            sender.SendTransmission(ref testJsonString);
+            sender.SendTransmission();
 
             //Assert
             Assert.IsFalse(sender.IsBufferEmpty());
@@ -33,6 +34,7 @@ namespace Unit_Tests
             //Arrange
             GroundSender sender = new GroundSender(testURL, ref queue, ref bufferlock);
 
+
             //Act
             //Assert
             Assert.IsFalse(sender.IsBufferEmpty());
@@ -43,10 +45,11 @@ namespace Unit_Tests
         {
             //Arrange
             GroundSender sender = new GroundSender(testURL, ref queue, ref bufferlock);
+            queue.Enqueue(testJsonString);
 
             //Act
             for (int i = 0; i < 10; i++)
-                sender.SendTransmission(ref testJsonString);
+                sender.SendTransmission();
             Thread.Sleep(200);
 
             //Assert
@@ -58,10 +61,11 @@ namespace Unit_Tests
         {
             //Arrange
             GroundSender sender = new GroundSender(testURL, ref queue, ref bufferlock);
+            queue.Enqueue(testJsonString);
 
             //Act
             for (int i = 0; i < 10; i++)
-                sender.SendTransmission(ref testJsonString);
+                sender.SendTransmission();
 
             //Assert
             Assert.AreEqual(true, sender.isRunning());
@@ -72,10 +76,11 @@ namespace Unit_Tests
         {
             //Arrange
             GroundSender sender = new GroundSender(testURL, ref queue, ref bufferlock);
+            queue.Enqueue(testJsonString);
 
             //Act
-            
-            bool testResult = sender.SendTransmission(ref testJsonString);
+
+            bool testResult = sender.SendTransmission();
 
             //Assert
             Assert.IsTrue(testResult);

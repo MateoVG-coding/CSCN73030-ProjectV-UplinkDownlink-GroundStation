@@ -2,7 +2,7 @@
 using Project_5;
 using System.Linq.Expressions;
 
-class DownLink
+class DownLink_MadeMockable
 {
     private const int QUEUESIZE = 10;
     private Queue<String> payloadQueue;
@@ -13,15 +13,15 @@ class DownLink
     private String groundStationAddress;
     private String groundStationEndPoint;
     Mutex bufferLock = new Mutex(false);
-    public DownLink(String address, String passThroughEndPoint, String groundStationEndPoint)
+    public DownLink_MadeMockable(String address, String passThroughEndPoint, String groundStationEndPoint, ref GroundSender passthrough, ref GroundSender ground)
     {
         payloadQueue = new Queue<String>(QUEUESIZE);
         this.passThroughAddress = address;
         this.passThroughEndPoint = passThroughEndPoint;
         this.groundStationAddress = address;
         this.groundStationEndPoint = groundStationEndPoint;
-        senderGroundStation = new GroundSender(groundStationAddress + groundStationEndPoint, ref payloadQueue, ref bufferLock);
-        senderPassThrough = new GroundSender(passThroughAddress + passThroughEndPoint, ref payloadQueue, ref bufferLock);
+        senderGroundStation = ground;
+        senderPassThrough = passthrough;
     }
 
     private bool ReadytoTransmit(ref GroundSender sender)
