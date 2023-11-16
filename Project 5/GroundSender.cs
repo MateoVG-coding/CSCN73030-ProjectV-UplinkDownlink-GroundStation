@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Project_5;
 using System.Text;
 
 
@@ -24,47 +25,7 @@ public class GroundSender
 
     private String PeekAtAddress()
     {
-        String nextToSend;
-        String? modulePath = String.Empty;
-        const String PATHKEY = "path";
-        Uri destination;
-        String peekedAddress = String.Empty;
-
-        bufferLock.WaitOne();
-        //add condition to let thread in in sending method
-        nextToSend = transmissionQueue.Peek();
-        bufferLock.ReleaseMutex();
-
-        try
-        {
-            JObject json = JObject.Parse(nextToSend);
-            modulePath = json[PATHKEY].Value<string>();
-            if (modulePath != null)
-            {
-                destination = new Uri(modulePath);
-                peekedAddress = destination.GetLeftPart(UriPartial.Authority);
-            }
-
-            //may have to extract module ID from path to check if it belongs to CNDH or not. CNDH only receives telemetry. else, it is passthrough. ID = 3 send to smaeplace/this, ID = 2 send to smaeplace/that
-        }
-        catch (JsonReaderException ex)
-        {
-            Console.WriteLine("Failed to check target module");
-        }
-        catch (ArgumentNullException ex)
-        {
-            Console.WriteLine("malformed target address for ground");
-        }
-        catch (NullReferenceException ex)
-        {
-            Console.WriteLine("malformed target address for ground");
-        }
-        catch (UriFormatException ex)
-        {
-            Console.WriteLine("malformed target address for ground");
-        }
-
-        return peekedAddress;
+        return Downlink_Stubs.PeekAtAddress_Stub();
     }
 
     private async void StartSendThread()
