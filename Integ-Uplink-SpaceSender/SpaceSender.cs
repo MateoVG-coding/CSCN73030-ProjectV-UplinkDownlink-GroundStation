@@ -1,51 +1,74 @@
-﻿#define TEST
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Project_5;
-using System.Collections;
-using System.Linq.Expressions;
 using System.Text;
 
 public class SpaceSender
 {
-    private Queue<string> transmissionQueue = new Queue<string>();
-    private HttpClient client = new HttpClient();
+    private Queue<String> transmissionQueue;
+    HttpClient client;
     private Thread? transmissionManager;
     Mutex bufferLock;
-    public bool TransmissionStatus { get; private set; }
-    private string targetURL;
+    public bool TransmissionStatus { get; set; }
+    Uri targetURI;
     private Thread? transmissionManager_Ping;
 
-    public SpaceSender(string targetURL, ref Queue<String> payloads, ref Mutex queuelock)
+    public SpaceSender(String target, ref Queue<String> payloads, ref Mutex queuelock)
     {
-        this.targetURL = targetURL;
-        transmissionQueue = payloads;
-        client = new HttpClient();
-        transmissionManager = new Thread(StartSendThread);
-        transmissionManager_Ping = new Thread(StartPingThread);
         bufferLock = queuelock;
+        TransmissionStatus = false;
+        transmissionQueue = payloads;
+        targetURI = new Uri(target);
+        client = new HttpClient();
+        client.BaseAddress = new Uri(targetURI.GetLeftPart(UriPartial.Authority));
     }
 
     private String PeekAtAddress()
     {
-        String nextToSend = String.Empty;
+        String nextToSend;
+        String? modulePath = String.Empty;
+        const String PATHKEY = "path";
+        Uri destination;
+        String peekedAddress = String.Empty;
 
-#if DEBUG
-
-        nextToSend = Uplink_Stubs.PeekAtAddress_Stub();
-#else
         bufferLock.WaitOne();
+        //add condition to let thread in in sending method
         nextToSend = transmissionQueue.Peek();
         bufferLock.ReleaseMutex();
-#endif
 
-        return nextToSend;
+        try
+        {
+            JObject json = JObject.Parse(nextToSend);
+            modulePath = json[PATHKEY].Value<string>();
+            if (modulePath != null)
+            {
+                destination = new Uri(modulePath);
+                peekedAddress = destination.GetLeftPart(UriPartial.Authority);
+            }
+        }
+        catch (JsonReaderException ex)
+        {
+            Console.WriteLine("Failed to check target module");
+        }
+        catch (ArgumentNullException ex)
+        {
+            Console.WriteLine("malformed target address for ground");
+        }
+        catch (NullReferenceException ex)
+        {
+            Console.WriteLine("malformed target address for ground");
+        }
+        catch (UriFormatException ex)
+        {
+            Console.WriteLine("malformed target address for ground");
+        }
+
+        return peekedAddress;
     }
 
     public bool IsBufferEmpty()
     {
-        lock (bufferLock)
-        {
-            return transmissionQueue.Count == 0;
-        }
+        return transmissionQueue.Count == 0;
     }
 
     public bool IsRunning()
@@ -58,22 +81,8 @@ public class SpaceSender
         return status;
     }
 
-    public bool SendTransmission(string jsonData)
+    public bool SendTransmission()
     {
-        try
-        {
-            bufferLock.WaitOne();
-            transmissionQueue.Enqueue(jsonData);
-            bufferLock.ReleaseMutex();
-        }
-        catch (ApplicationException)
-        {
-            return false;
-        }
-        catch (ObjectDisposedException)
-        {
-            return false;
-        }
 
         if (transmissionManager == null)
         {
@@ -118,48 +127,46 @@ public class SpaceSender
 
     private async void StartSendThread()
     {
-        TransmissionStatus = true;
         String? nextToSend = null;
-        client = new HttpClient();
         HttpContent? content = null;
         HttpResponseMessage? response = null;
         String addressOfDestination = String.Empty;
 
+        TransmissionStatus = true;
+
         while (transmissionQueue.Count > 0)
         {
-#if !DEBUG
+
             if (TransmissionStatus)
             {
 
                 addressOfDestination = PeekAtAddress();
 
-                if (addressOfDestination.Equals(targetURL))
+                if (addressOfDestination.Equals(targetURI.GetLeftPart(UriPartial.Authority).ToString()))
                 {
                     bufferLock.WaitOne();
 
                     try
                     {
                         nextToSend = transmissionQueue.Dequeue();
-                    }catch(InvalidOperationException ex)
+                    }
+                    catch (InvalidOperationException ex)
                     {
                         nextToSend = null;
                     }
-                    
+
                     bufferLock.ReleaseMutex();
                 }
             }
-#endif       
+
             if (nextToSend != null)
             {
                 content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
 
                 try
                 {
-#if DEBUG
-                    response = Stub_SpaceSender.HttpRequest_Stub();
-#else
-                    response = await client.PostAsync(targetURL, content);
-#endif
+                    response = await client.PostAsync(targetURI.PathAndQuery, content);
+
                     //Http request sends json string that was dequeued
                     if (response.IsSuccessStatusCode)
                         TransmissionStatus = true;
@@ -188,11 +195,7 @@ public class SpaceSender
         {
             try
             {
-#if DEBUG
-                HttpResponseMessage response = Stub_SpaceSender.HttpRequest_Stub();
-#else
-                HttpResponseMessage response = await client.GetAsync(targetURL);
-#endif
+                HttpResponseMessage response = await client.GetAsync(targetURI);
 
 
                 if (response.IsSuccessStatusCode)

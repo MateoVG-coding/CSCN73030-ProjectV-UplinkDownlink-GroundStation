@@ -1,36 +1,30 @@
 using Project_5;
 
-namespace Integ_Uplink_SpaceSender
+namespace Integ_Downlink_GroundSender.Tests
 {
     [TestClass]
-    public class Uplink_Integration_Tests
+    public class Uplink_Integration
     {
         [TestMethod]
-        public void Uplink_AddToQueue_Success()
+        public void Uplink_Provides_Data_To_Send_SpaceSender_Begins_Transmitting()
         {
-            var uplink = new Uplink("address", "passThroughEndPoint", "groundStationEndPoint");
+            //Arrange
+            String fakeAddress = "192.168.1.1";
+            String fakeEndpointSpace = "https://httpbin.org/post";
+            String fakeEndPointPassthrough = "https://httpbin.org/post";
 
-            bool result = uplink.AddToQueue("payload");
+            Queue<String> testQueue = Stub_SpaceSender.GetFakedTransmissionQuueue();
+            Mutex bufferlock = new Mutex();
+            SpaceSender space = new SpaceSender(fakeEndpointSpace, ref testQueue, ref bufferlock);
+            SpaceSender passthrough = new SpaceSender(fakeEndPointPassthrough, ref testQueue, ref bufferlock);
+            Uplink_MadeMockable link = new Uplink_MadeMockable(fakeAddress, fakeEndpointSpace, fakeEndPointPassthrough, ref space, ref passthrough);
 
-            // Assert
-            Assert.IsTrue(result);
-        }
+            //Act
+            link.AddToQueue("{'path': 'https://httpbin.org/post'}");
+            Thread.Sleep(5000);
 
-        [TestMethod]
-        public void Uplink_AddToQueue_FailWhenQueueFull()
-        {
-            var uplink = new Uplink("address", "passThroughEndPoint", "groundStationEndPoint");
-
-            // Fill up the queue
-            for (int i = 0; i < 10; i++)
-            {
-                uplink.AddToQueue($"payload{i}");
-            }
-
-            bool result = uplink.AddToQueue("extraPayload");
-
-            // Assert
-            Assert.IsFalse(result);
+            //Assert
+            Assert.IsTrue(space.IsBufferEmpty());
         }
     }
 }

@@ -19,10 +19,13 @@ namespace Project_5
 
         public static Queue<String> GetFakedTransmissionQuueue()
         {
+            String test1 = "{'path': 'http://localhost:8080/UD_Space_Receive'}";
+            String test2 = "{'path': 'http://localhost:8080/UD_Space_Receive'}";
+            String test3 = "{'path': 'http://localhost:8080/UD_Space_Receive'}";
             Queue<String> transmissions = new Queue<String>();
-            transmissions.Enqueue("testTransmissions1");
-            transmissions.Enqueue("testTransmissions2");
-            transmissions.Enqueue("testTransmissions3");
+            transmissions.Enqueue(test1);
+            transmissions.Enqueue(test2);
+            transmissions.Enqueue(test3);
 
             return transmissions;
         }
