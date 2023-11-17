@@ -33,7 +33,7 @@ namespace link
             }
             else
             {
-                //throw new Exception(BandwidthLimitReachedException);
+                throw new OutOfBandwidthException(bandwidth, messageSize);
             }
         }
 
@@ -136,4 +136,16 @@ namespace link
         }
 
     }
+
+    public class OutOfBandwidthException : Exception
+    {
+        public OutOfBandwidthException() { }
+
+        public OutOfBandwidthException(int currentBandwidth, int attemptedBandwidth)
+            : base(String.Format("Tried to use more than available bandwidth ", attemptedBandwidth, " of remaining ", currentBandwidth))
+        {
+
+        }
+    }
+
 }
