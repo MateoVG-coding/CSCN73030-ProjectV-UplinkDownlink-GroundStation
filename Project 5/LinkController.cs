@@ -8,6 +8,37 @@ namespace link
     /// </summary>
     public class LinkController
     {
+        //link controller data
+        private Mutex bandwidthLock = new Mutex();
+        private int bandwidth = 35000;
+
+        //bandwidth methods
+        public void resetBandwidth()
+        {
+            bandwidthLock.WaitOne();
+            bandwidth = 35000;
+            bandwidthLock.ReleaseMutex();
+        }
+        public int getBandwidth()
+        {
+            return bandwidth;
+        }
+        public void addBandwidth(int messageSize)
+        {
+            if (bandwidth - messageSize > 0)
+            {
+                bandwidthLock.WaitOne();
+                bandwidth -= messageSize;
+                bandwidthLock.ReleaseMutex();
+            }
+            else
+            {
+                throw new OutOfBandwidthException(bandwidth, messageSize);
+            }
+        }
+
+        //API methods
+
         /// <summary>
         /// Create endpoints for the API
         /// </summary>
@@ -105,4 +136,16 @@ namespace link
         }
 
     }
+
+    public class OutOfBandwidthException : Exception
+    {
+        public OutOfBandwidthException() { }
+
+        public OutOfBandwidthException(int currentBandwidth, int attemptedBandwidth)
+            : base(String.Format("Tried to use more than available bandwidth ", attemptedBandwidth, " of remaining ", currentBandwidth))
+        {
+
+        }
+    }
+
 }
