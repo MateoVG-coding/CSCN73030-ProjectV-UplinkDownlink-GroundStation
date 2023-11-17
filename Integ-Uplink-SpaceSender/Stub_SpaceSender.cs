@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_5
 {
-    public static class GroundSender_Stubs
+    public static class Stub_SpaceSender
     {
         public static HttpResponseMessage HttpRequest_Stub()
         {
@@ -30,6 +30,10 @@ namespace Project_5
             return transmissions;
         }
 
+        public static bool GetLinkStatus_Stub()
+        {
+            return true;
+        }
 
         public static void StartSendTransmission_Throws_OutOfMemoryException()
         {
@@ -42,7 +46,7 @@ namespace Project_5
         }
     }
 
-    public static class Downlink_Stubs
+    public static class Uplink_Stubs
     {
         public static bool AddToQueue_Stub(String payload)
         {
@@ -54,10 +58,10 @@ namespace Project_5
             return "Test_Address";
         }
 
+
         public static bool ReadyToTransmit_Stub()
         {
             return true;
         }
     }
-
 }

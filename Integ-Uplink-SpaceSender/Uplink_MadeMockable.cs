@@ -1,8 +1,12 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Project_5;
 using System.Linq.Expressions;
 
-public class Uplink
+class Uplink_MadeMockable
 {
     private const int QUEUESIZE = 10;
     private Queue<String> payloadQueue;
@@ -13,18 +17,18 @@ public class Uplink
     private String SpaceAddress;
     private String SpaceEndPoint;
     Mutex bufferLock = new Mutex(false);
-    public Uplink(String address, String passThroughEndPoint, String SpaceEndPoint)
+    public Uplink_MadeMockable(String address, String passThroughEndPoint, String SpaceEndPoint, ref SpaceSender passthrough, ref SpaceSender space)
     {
         payloadQueue = new Queue<String>(QUEUESIZE);
         this.passThroughAddress = address;
         this.passThroughEndPoint = passThroughEndPoint;
         this.SpaceAddress = address;
         this.SpaceEndPoint = SpaceEndPoint;
-        senderSpace = new SpaceSender(SpaceAddress + SpaceEndPoint, ref payloadQueue, ref bufferLock);
-        senderPassThrough = new SpaceSender(passThroughAddress + passThroughEndPoint, ref payloadQueue, ref bufferLock);
+        senderSpace = space;
+        senderPassThrough = passthrough;
     }
 
-    private bool ReadytoTransmit(ref SpaceSender sender)
+    private bool ReadytoTransmit(ref GroundSender sender)
     {
         return Uplink_Stubs.ReadyToTransmit_Stub();
     }
@@ -47,13 +51,8 @@ public class Uplink
         return true;
     }
 
-    public bool Clear()
+    public void Clear()
     {
-        bufferLock.WaitOne();
-        payloadQueue.Clear();
-        bufferLock.ReleaseMutex();
-
-        return payloadQueue.Count == 0;
 
     }
 }

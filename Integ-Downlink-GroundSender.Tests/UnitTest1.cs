@@ -1,3 +1,5 @@
+
+
 using Project_5;
 
 namespace Integ_Downlink_GroundSender.Tests
@@ -10,25 +12,21 @@ namespace Integ_Downlink_GroundSender.Tests
         {
             //Arrange
             String fakeAddress = "192.168.1.1";
-            String fakeEndpointGround = "/rceiveData";
-            String fakeEndPointPassthrough = "/reflectData";
-            
+            String fakeEndpointGround = "https://httpbin.org/post";
+            String fakeEndPointPassthrough = "https://httpbin.org/post";
+
             Queue<String> testQueue = GroundSender_Stubs.GetFakedTransmissionQuueue();
             Mutex bufferlock = new Mutex();
-            GroundSender ground = new GroundSender(fakeAddress, ref testQueue, ref bufferlock);
-            GroundSender passthrough = new GroundSender(fakeAddress, ref testQueue, ref bufferlock);
+            GroundSender ground = new GroundSender(fakeEndpointGround, ref testQueue, ref bufferlock);
+            GroundSender passthrough = new GroundSender(fakeEndPointPassthrough, ref testQueue, ref bufferlock);
             DownLink_MadeMockable link = new DownLink_MadeMockable(fakeAddress, fakeEndpointGround, fakeEndPointPassthrough, ref ground, ref passthrough);
-            String testPayload = "Test payload";
 
             //Act
-            link.AddToQueue(testPayload);
-            ground.SendTransmission();
-            passthrough.SendTransmission();
-
+            link.AddToQueue("{'path': 'https://httpbin.org/post'}");
+            Thread.Sleep(5000);
 
             //Assert
-            Assert.IsTrue(ground.isRunning());
-            Assert.IsTrue(passthrough.isRunning());
+            Assert.IsTrue(ground.IsBufferEmpty());
         }
     }
 }
