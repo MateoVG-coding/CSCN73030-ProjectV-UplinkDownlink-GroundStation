@@ -2,7 +2,7 @@
 using Project_5;
 using System.Linq.Expressions;
 
-class DownLink
+public class DownLink
 {
     private const int QUEUESIZE = 10;
     private Queue<String> payloadQueue;
@@ -13,6 +13,8 @@ class DownLink
     private String groundStationAddress;
     private String groundStationEndPoint;
     Mutex bufferLock = new Mutex(false);
+    
+
     public DownLink(String address, String passThroughEndPoint, String groundStationEndPoint)
     {
         payloadQueue = new Queue<String>(QUEUESIZE);
@@ -24,7 +26,7 @@ class DownLink
         senderPassThrough = new GroundSender(passThroughAddress + passThroughEndPoint, ref payloadQueue, ref bufferLock);
     }
 
-    private bool ReadytoTransmit(ref GroundSender sender)
+    public bool ReadytoTransmit(ref GroundSender sender)
     {
         return Downlink_Stubs.ReadyToTransmit_Stub();
     }
@@ -47,8 +49,13 @@ class DownLink
         return true;
     }
 
-    public void Clear()
+    public bool Clear()
     {
+        bufferLock.WaitOne();
+        payloadQueue.Clear();
+        bufferLock.ReleaseMutex();
+
+        return payloadQueue.Count == 0;
 
     }
 }
