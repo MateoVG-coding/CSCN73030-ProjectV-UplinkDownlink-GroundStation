@@ -47,8 +47,13 @@ public class Uplink
         return true;
     }
 
-    public void Clear()
+    public bool Clear()
     {
+        bufferLock.WaitOne();
+        payloadQueue.Clear();
+        bufferLock.ReleaseMutex();
+
+        return payloadQueue.Count == 0;
 
     }
 }
