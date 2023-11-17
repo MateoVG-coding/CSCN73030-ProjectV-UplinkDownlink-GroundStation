@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text;
 using Project_5;
 
 namespace link
@@ -44,6 +45,8 @@ namespace link
             HttpListenerRequest req = context.Request;
             HttpListenerResponse res = context.Response;
 
+            logging.log(req);
+
             //handler for deciding how to process different requests
             switch (req.RawUrl)
             {
@@ -51,45 +54,45 @@ namespace link
 
                     if (req.HttpMethod == "GET")
                     {
-                        Console.WriteLine("Client requested status");
+                        logging.log("Client requested status");
                         //todo: integrate getter for the link status
                         res.StatusCode = 200;
                     }
                     else
                     {
-                        Console.WriteLine("request sent to /status/ with wrong operation");
+                        logging.log("request sent to /status/ with wrong operation");
                         res.StatusCode = 404;
                     }
                     break;
                 case "/send/":  //case for sending things to space
                     if (req.HttpMethod == "POST")
                     {
-                        Console.WriteLine("Client posted message to forward to sattlite");
+                        logging.log("Client posted message to forward to sattlite");
                         //todo: integrate message queue system and sending system
                         res.StatusCode = 200;
                     }
                     else
                     {
-                        Console.WriteLine("request sent to /send/ with wrong operation");
+                        logging.log("request sent to /send/ with wrong operation");
                         res.StatusCode = 404;
                     }
                     break;
                 case "/receive/": //case for receiving things from space
                     if (req.HttpMethod == "POST")
                     {
-                        Console.WriteLine("Sattelite posted message to forward to ground");
+                        logging.log("Sattelite posted message to forward to ground");
                         //todo: integrate methods for passing off data
                         res.StatusCode = 200;
 
                     }
                     else
                     {
-                        Console.WriteLine("request sent to /recieve/ with wrong operation");
+                        logging.log("request sent to /recieve/ with wrong operation");
                         res.StatusCode = 404;
                     }
                     break;
                 default:
-                    Console.WriteLine("Requst to endpoint that doesnt exist");
+                    logging.log("Requst to endpoint that doesnt exist");
                     res.StatusCode = 404;
                     break;
             }
@@ -104,5 +107,27 @@ namespace link
             output.Close();
         }
 
+    }
+}
+
+static class logging
+{
+    public static void log(HttpListenerRequest req)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append(DateTime.Now);
+        sb.Append(" Recieved " + req.RawUrl + " from " + req.RemoteEndPoint + '\n');
+        Console.Write(sb.ToString());
+        File.AppendAllText("./logs.txt", sb.ToString());
+        sb.Clear();
+    }
+
+    public static void log(string msg)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append(DateTime.Now);
+        sb.Append(msg);
+        Console.Write(sb.ToString());
+        File.AppendAllText("./logs.txt", sb.ToString());
     }
 }
