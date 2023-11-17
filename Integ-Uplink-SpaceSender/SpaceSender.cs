@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Text;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Project_5;
+using System.Text;
 
 public class SpaceSender
 {
@@ -25,7 +25,6 @@ public class SpaceSender
 
     private String PeekAtAddress()
     {
-
         String nextToSend;
         String? modulePath = String.Empty;
         const String PATHKEY = "path";

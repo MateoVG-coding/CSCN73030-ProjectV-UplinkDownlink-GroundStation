@@ -1,22 +1,22 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Text;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Project_5;
+using System.Text;
 
-public class SpaceSender
+
+public class GroundSender
 {
     private Queue<String> transmissionQueue;
     HttpClient client;
     private Thread? transmissionManager;
     Mutex bufferLock;
-    public bool TransmissionStatus { get; set; }
+    public bool transmissionStatus { get; set; }
     Uri targetURI;
-    private Thread? transmissionManager_Ping;
 
-    public SpaceSender(String target, ref Queue<String> payloads, ref Mutex queuelock)
+    public GroundSender(String target, ref Queue<String> payloads, ref Mutex queuelock)
     {
         bufferLock = queuelock;
-        TransmissionStatus = false;
+        transmissionStatus = false;
         transmissionQueue = payloads;
         targetURI = new Uri(target);
         client = new HttpClient();
@@ -25,7 +25,6 @@ public class SpaceSender
 
     private String PeekAtAddress()
     {
-
         String nextToSend;
         String? modulePath = String.Empty;
         const String PATHKEY = "path";
@@ -46,6 +45,8 @@ public class SpaceSender
                 destination = new Uri(modulePath);
                 peekedAddress = destination.GetLeftPart(UriPartial.Authority);
             }
+
+            //may have to extract module ID from path to check if it belongs to CNDH or not. CNDH only receives telemetry. else, it is passthrough. ID = 3 send to smaeplace/this, ID = 2 send to smaeplace/that
         }
         catch (JsonReaderException ex)
         {
@@ -67,65 +68,6 @@ public class SpaceSender
         return peekedAddress;
     }
 
-    public bool IsBufferEmpty()
-    {
-        return transmissionQueue.Count == 0;
-    }
-
-    public bool IsRunning()
-    {
-        bool status = false;
-        if (transmissionManager != null)
-            status = transmissionManager.IsAlive;
-        else
-            status = false;
-        return status;
-    }
-
-    public bool SendTransmission()
-    {
-
-        if (transmissionManager == null)
-        {
-            transmissionManager = new Thread(delegate ()
-            {
-                StartSendThread();
-            });
-
-        }
-
-        if (!transmissionManager.IsAlive)
-        {
-            if (TransmissionStatus)
-            {
-                try
-                {
-                    transmissionManager.Join();
-                }
-                catch (ThreadStateException) { }
-                catch (ThreadInterruptedException) { }
-            }
-            try
-            {
-                transmissionManager = new Thread(delegate ()
-                {
-                    StartSendThread();
-                });
-                transmissionManager.Start();
-                TransmissionStatus = true;
-            }
-            catch (ThreadStateException)
-            {
-                return false;
-            }
-            catch (OutOfMemoryException)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private async void StartSendThread()
     {
         String? nextToSend = null;
@@ -133,12 +75,12 @@ public class SpaceSender
         HttpResponseMessage? response = null;
         String addressOfDestination = String.Empty;
 
-        TransmissionStatus = true;
+        transmissionStatus = true;
 
         while (transmissionQueue.Count > 0)
         {
 
-            if (TransmissionStatus)
+            if (transmissionStatus)
             {
 
                 addressOfDestination = PeekAtAddress();
@@ -170,9 +112,9 @@ public class SpaceSender
 
                     //Http request sends json string that was dequeued
                     if (response.IsSuccessStatusCode)
-                        TransmissionStatus = true;
+                        transmissionStatus = true;
                     else
-                        TransmissionStatus = false;
+                        transmissionStatus = false;
                 }
                 catch (HttpRequestException ex)
                 { return; }
@@ -180,75 +122,55 @@ public class SpaceSender
         }
     }
 
-    public bool IsRunning_Ping()
+    public bool IsBufferEmpty()
+    {
+        return transmissionQueue.Count == 0;
+    }
+
+    public bool isRunning()
     {
         bool status = false;
-        if (transmissionManager_Ping != null)
-            status = transmissionManager_Ping.IsAlive;
+        if (transmissionManager != null)
+            status = transmissionManager.IsAlive;
         else
             status = false;
         return status;
     }
 
-    private async void StartPingThread()
+    public bool SendTransmission()
     {
-        while (true)
+        if (transmissionManager == null)
         {
-            try
+            transmissionManager = new Thread(delegate ()
             {
-                HttpResponseMessage response = await client.GetAsync(targetURI);
-
-
-                if (response.IsSuccessStatusCode)
-                {
-                    TransmissionStatus = true;
-                    Thread.Sleep(1000);
-                }
-                else
-                {
-                    TransmissionStatus = false;
-                    Thread.Sleep(1000);
-                }
-            }
-            catch (HttpRequestException e)
-            {
-                return;
-            }
-        }
-    }
-
-    public bool SendPing()
-    {
-        if (transmissionManager_Ping == null)
-        {
-            transmissionManager_Ping = new Thread(delegate ()
-            {
-                StartPingThread();
+                StartSendThread();
             });
-
         }
 
-        if (!transmissionManager_Ping.IsAlive)
+        if (!transmissionManager.IsAlive)
         {
-            if (TransmissionStatus)
+            if (transmissionStatus)
             {
                 try
                 {
-                    transmissionManager_Ping.Join();
+                    transmissionManager.Join();
                 }
                 catch (ThreadStateException) { }
                 catch (ThreadInterruptedException) { }
             }
+
             try
             {
-                transmissionManager_Ping = new Thread(delegate ()
+                transmissionManager = new Thread(delegate ()
                 {
                     StartSendThread();
                 });
-                transmissionManager_Ping.Start();
+                transmissionManager.Start();
+                transmissionStatus = true;
             }
             catch (ThreadStateException)
             {
+
                 return false;
             }
             catch (OutOfMemoryException)
