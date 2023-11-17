@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project 5 Ground UD Link", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integ-UpLink-Downlink--Ground-Spacesender.Tests", "Integ-UpLink-Downlink--Ground-Spacesender.Tests\Integ-UpLink-Downlink--Ground-Spacesender.Tests.csproj", "{007E8B63-2918-4EF9-96AF-EF00120C9CAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integ-Uplink-SpaceSender", "Integ-Uplink-SpaceSender\Integ-Uplink-SpaceSender.csproj", "{032C8EF8-9808-4278-8DC4-21A798FEDD59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{007E8B63-2918-4EF9-96AF-EF00120C9CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{007E8B63-2918-4EF9-96AF-EF00120C9CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{007E8B63-2918-4EF9-96AF-EF00120C9CAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{032C8EF8-9808-4278-8DC4-21A798FEDD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{032C8EF8-9808-4278-8DC4-21A798FEDD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{032C8EF8-9808-4278-8DC4-21A798FEDD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{032C8EF8-9808-4278-8DC4-21A798FEDD59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
