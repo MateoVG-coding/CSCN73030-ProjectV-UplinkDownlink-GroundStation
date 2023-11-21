@@ -26,9 +26,17 @@ public class DownLink
         senderPassThrough = new GroundSender(passThroughAddress + passThroughEndPoint, ref payloadQueue, ref bufferLock);
     }
 
-    public bool ReadytoTransmit(ref GroundSender sender)
+    public bool ReadytoTransmit(params GroundSender[] senders)
     {
-        return Downlink_Stubs.ReadyToTransmit_Stub();
+        bool status = true;
+
+        foreach (GroundSender sender in senders)
+        {
+            if (!sender.transmissionStatus)
+                status = false;
+        }
+
+        return status;
     }
 
     public bool AddToQueue(String payload)
