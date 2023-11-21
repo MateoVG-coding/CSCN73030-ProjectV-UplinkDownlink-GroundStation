@@ -13,7 +13,7 @@ class DownLink_MadeMockable
     private String groundStationAddress;
     private String groundStationEndPoint;
     Mutex bufferLock = new Mutex(false);
-    public DownLink_MadeMockable(String address, String passThroughEndPoint, String groundStationEndPoint, ref GroundSender passthrough, ref GroundSender ground)
+    public DownLink_MadeMockable(String address, String groundStationEndPoint, String passThroughEndPoint, ref GroundSender passthrough, ref GroundSender ground)
     {
         payloadQueue = new Queue<String>(QUEUESIZE);
         this.passThroughAddress = address;
@@ -24,9 +24,17 @@ class DownLink_MadeMockable
         senderPassThrough = passthrough;
     }
 
-    private bool ReadytoTransmit(ref GroundSender sender)
+    public bool ReadytoTransmit(params GroundSender[] senders)
     {
-        return Downlink_Stubs.ReadyToTransmit_Stub();
+        bool status = true;
+
+        foreach( GroundSender sender in senders )
+        {
+            if (!sender.transmissionStatus)
+                status = false;
+        }
+
+        return status;
     }
 
     public bool AddToQueue(String payload)
@@ -47,8 +55,13 @@ class DownLink_MadeMockable
         return true;
     }
 
-    public void Clear()
+    public bool Clear()
     {
+        bufferLock.WaitOne();
+        payloadQueue.Clear();
+        bufferLock.ReleaseMutex();
+
+        return payloadQueue.Count == 0;
 
     }
 }

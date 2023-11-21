@@ -20,7 +20,7 @@ public class Uplink
 
     private bool ReadytoTransmit(ref SpaceSender sender)
     {
-        return Uplink_Stubs.ReadyToTransmit_Stub();
+        return senderSpace.TransmissionStatus == false;
     }
 
     public bool AddToQueue(String payload)
