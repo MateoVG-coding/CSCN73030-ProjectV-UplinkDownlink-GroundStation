@@ -17,7 +17,7 @@ namespace Integ_Uplink_SpaceSender
             Mutex bufferlock = new Mutex();
             SpaceSender space = new SpaceSender(fakeEndpointSpace, ref testQueue, ref bufferlock);
             SpaceSender passthrough = new SpaceSender(fakeEndPointPassthrough, ref testQueue, ref bufferlock);
-            Uplink_MadeMockable link = new Uplink_MadeMockable(fakeAddress, fakeEndpointSpace, fakeEndPointPassthrough, ref space, ref passthrough);
+            Uplink_MadeMockable link = new Uplink_MadeMockable(fakeAddress, fakeEndpointSpace, ref space);
 
             //Act
             link.AddToQueue("{'path': 'https://httpbin.org/post'}");
