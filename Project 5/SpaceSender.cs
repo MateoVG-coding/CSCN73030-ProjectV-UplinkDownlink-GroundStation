@@ -192,6 +192,7 @@ public class SpaceSender
 
     private async void StartPingThread()
     {
+        TransmissionStatus = true;
         while (true)
         {
             try
@@ -202,12 +203,12 @@ public class SpaceSender
                 if (response.IsSuccessStatusCode)
                 {
                     TransmissionStatus = true;
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                 }
                 else
                 {
                     TransmissionStatus = false;
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                 }
             }
             catch (HttpRequestException e)
@@ -243,7 +244,7 @@ public class SpaceSender
             {
                 transmissionManager_Ping = new Thread(delegate ()
                 {
-                    StartSendThread();
+                    StartPingThread();
                 });
                 transmissionManager_Ping.Start();
             }
