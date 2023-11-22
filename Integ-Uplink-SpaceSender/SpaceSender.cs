@@ -191,6 +191,7 @@ public class SpaceSender
 
     private async void StartPingThread()
     {
+        TransmissionStatus = true;
         while (true)
         {
             try
@@ -242,7 +243,7 @@ public class SpaceSender
             {
                 transmissionManager_Ping = new Thread(delegate ()
                 {
-                    StartSendThread();
+                    StartPingThread();
                 });
                 transmissionManager_Ping.Start();
             }
