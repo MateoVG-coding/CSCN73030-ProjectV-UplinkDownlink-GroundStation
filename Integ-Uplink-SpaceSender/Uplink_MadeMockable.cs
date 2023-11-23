@@ -23,9 +23,14 @@ class Uplink_MadeMockable
         senderSpace = space;
     }
 
-    private bool ReadytoTransmit(ref GroundSender sender)
+    public bool ReadytoTransmit(ref SpaceSender sender)
     {
-        return Uplink_Stubs.ReadyToTransmit_Stub();
+        bool status = true;
+
+        if (!sender.TransmissionStatus)
+            status = false;
+
+        return status;
     }
 
     public bool AddToQueue(String payload)
