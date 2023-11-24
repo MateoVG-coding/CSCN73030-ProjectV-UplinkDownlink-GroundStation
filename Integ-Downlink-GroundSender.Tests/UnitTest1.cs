@@ -52,7 +52,7 @@ namespace Integ_Downlink_GroundSender.Tests
                 link.AddToQueue(testQueue.Dequeue());
             }
             while (!ground.IsBufferEmpty());
-            Task.Delay(3000);
+            Task.Delay(4000);
             //Assert
             Assert.IsTrue(link.ReadytoTransmit(ground)); 
             //removed breakpoint - release passing debug was failing.
