@@ -55,7 +55,7 @@ namespace Integ_Downlink_GroundSender.Tests
             Thread.Sleep(2000);
             //Assert
             Assert.IsTrue(link.ReadytoTransmit(ground)); 
-            //change to push
+            //removed breakpoint - release passing debug was failing.
         }
     }
 }
