@@ -3,10 +3,6 @@
 name: Unit Tests
 
 on:
-  push:
-    branches:    
-      - '**feature**'  #filters for all branches named with 'release'
-      - '**Feature**'
   pull_request:
     branches: [ "master" ]
 
