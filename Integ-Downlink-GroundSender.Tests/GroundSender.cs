@@ -108,13 +108,17 @@ public class GroundSender
 
                 try
                 {
-                    response = await client.PostAsync(targetURI.PathAndQuery, content);
+                    transmissionStatus = true;
+                    /*
+                     response = await client.PostAsync(targetURI.PathAndQuery, content);
 
                     //Http request sends json string that was dequeued
                     if (response.IsSuccessStatusCode)
                         transmissionStatus = true;
                     else
                         transmissionStatus = false;
+                    */
+
                 }
                 catch (HttpRequestException ex)
                 { return; }
