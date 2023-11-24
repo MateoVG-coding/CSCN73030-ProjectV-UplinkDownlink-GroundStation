@@ -6,27 +6,26 @@ public class Uplink
 {
     private const int QUEUESIZE = 10;
     private Queue<String> payloadQueue;
-    private SpaceSender senderPassThrough;
     private SpaceSender senderSpace;
-    private String passThroughEndPoint;
-    private String passThroughAddress;
     private String SpaceAddress;
     private String SpaceEndPoint;
     Mutex bufferLock = new Mutex(false);
-    public Uplink(String address, String passThroughEndPoint, String SpaceEndPoint)
+    public Uplink(String address, String SpaceEndPoint)
     {
         payloadQueue = new Queue<String>(QUEUESIZE);
-        this.passThroughAddress = address;
-        this.passThroughEndPoint = passThroughEndPoint;
         this.SpaceAddress = address;
         this.SpaceEndPoint = SpaceEndPoint;
         senderSpace = new SpaceSender(SpaceAddress + SpaceEndPoint, ref payloadQueue, ref bufferLock);
-        senderPassThrough = new SpaceSender(passThroughAddress + passThroughEndPoint, ref payloadQueue, ref bufferLock);
     }
 
-    private bool ReadytoTransmit(ref SpaceSender sender)
+    public bool ReadytoTransmit(ref SpaceSender sender)
     {
-        return senderSpace.TransmissionStatus == false;
+        bool status = true;
+
+        if (!sender.TransmissionStatus)
+            status = false;
+
+        return status;
     }
 
     public bool AddToQueue(String payload)
@@ -39,8 +38,6 @@ public class Uplink
 
         if (!senderSpace.IsRunning())
             senderSpace.SendTransmission();
-        else if (!senderPassThrough.IsRunning())
-            senderPassThrough.SendTransmission();
         else
             return false;
 

@@ -47,7 +47,7 @@ namespace Unit_Tests
         }
 
         [TestMethod]
-        public async Task SpaceSender_SendPing_SetStatusToTrueWhenPingResponseIsReceived()
+        public async Task SpaceSender_SendPing_SetStatus_To_True_When_PingIsSent()
         {
             var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
             Assert.IsFalse(sender.TransmissionStatus); 
@@ -55,6 +55,17 @@ namespace Unit_Tests
             sender.SendPing();
             await Task.Delay(5000);
             Assert.IsTrue(sender.TransmissionStatus);
+        }
+
+        [TestMethod]
+        public void SpaceSender_SendPing_Strats_PingThread()
+        {
+            var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
+            Assert.IsFalse(sender.IsRunning_Ping());
+
+            sender.SendPing();
+
+            Assert.IsTrue(sender.IsRunning_Ping());
         }
     }
 }
