@@ -76,6 +76,12 @@ namespace link
             HttpListenerRequest req = context.Request;
             HttpListenerResponse res = context.Response;
 
+
+            // Jose moved this lol
+            string responseString = "";
+            System.IO.Stream output;
+            byte[] buffer;
+
             logging.log(req);
 
             //handler for deciding how to process different requests
@@ -85,11 +91,24 @@ namespace link
 
                     if (req.HttpMethod == "GET")
                     {
-                        logging.log("Client requested status");
-                        //todo: integrate getter for the link status
-                        res.StatusCode = 200;
+                        try
+                        {
+                            int remainingBandwidth = getBandwidth();
+                            logging.log("Client requested status. Remaining Bandwidth: " + remainingBandwidth + "\n");
+
+                            responseString = remainingBandwidth.ToString();
+
+                            res.StatusCode = 200;
+                            buffer = Encoding.UTF8.GetBytes(responseString);
+                        }
+                        catch (OutOfBandwidthException ex)
+                        {
+                            logging.log("Out of bandwidth.");
+                            res.StatusCode = 503; // Service Unavailable
+                            res.Close();
+                        }
                     }
-                    else
+                    else  
                     {
                         logging.log("request sent to /status/ with wrong operation");
                         res.StatusCode = 404;
@@ -128,12 +147,16 @@ namespace link
                     break;
             }
 
-            string responseString = "";
+            // The commented stuff is were stuff used to be before a changed it, just in case
 
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+            // string responseString = "";
+            // byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+
+            buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             res.ContentLength64 = buffer.Length;
-            System.IO.Stream output = res.OutputStream;
+            // System.IO.Stream output = res.OutputStream;;
+            output = res.OutputStream;
             output.Write(buffer, 0, buffer.Length);
             output.Close();
         }
