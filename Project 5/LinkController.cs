@@ -12,6 +12,8 @@ namespace link
         //link controller data
         private Mutex bandwidthLock = new Mutex();
         private int bandwidth = 35000;
+        private Uplink? uLink;
+        private DownLink? dLink;
 
         //bandwidth methods
         public void resetBandwidth()
@@ -101,6 +103,27 @@ namespace link
                         logging.log("Client posted message to forward to sattlite");
                         //todo: integrate message queue system and sending system
                         res.StatusCode = 200;
+
+                        System.IO.Stream body = req.InputStream;
+                        System.Text.Encoding encoding = req.ContentEncoding;
+
+                        System.IO.StreamReader reader = new System.IO.StreamReader(body, encoding);
+
+                        // Convert the data to a string and display it on the console.
+                        if (!req.HasEntityBody)
+                        {
+                            logging.log("No client data was sent with the request.");
+                            break;
+                        }
+
+
+                        string payload = reader.ReadToEnd();
+                        logging.log("End of client data:");
+                        logging.log("Client sent: " + payload);
+                        logging.log("End of client data");
+                        body.Close();
+                        reader.Close();
+                        uLink.AddToQueue(payload);
                     }
                     else
                     {
@@ -114,6 +137,26 @@ namespace link
                         logging.log("Sattelite posted message to forward to ground");
                         //todo: integrate methods for passing off data
                         res.StatusCode = 200;
+
+                        System.IO.Stream body = req.InputStream;
+                        System.Text.Encoding encoding = req.ContentEncoding;
+
+                        System.IO.StreamReader reader = new System.IO.StreamReader(body, encoding);
+
+                        // Convert the data to a string and display it on the console.
+                        if (!req.HasEntityBody)
+                        {
+                            logging.log("No client data was sent with the request.");
+                            break;
+                        }
+
+                        string payload = reader.ReadToEnd();
+                        logging.log("End of client data:");
+                        logging.log("Client sent: " + payload);
+                        logging.log("End of client data");
+                        body.Close();
+                        reader.Close();
+                        dLink.AddToQueue(payload);
 
                     }
                     else
