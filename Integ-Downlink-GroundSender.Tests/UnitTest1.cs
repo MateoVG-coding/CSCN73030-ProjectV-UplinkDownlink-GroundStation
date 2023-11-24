@@ -30,7 +30,7 @@ namespace Integ_Downlink_GroundSender.Tests
         }
 
         [TestMethod]
-        public void Downlink_Is_Ready_For_Transmission_When_Idle()
+        public async Task Downlink_Is_Ready_For_Transmission_When_Idle()
         {
             //Arrange
             String fakeAddress = "https://httpbin.org";
@@ -51,6 +51,8 @@ namespace Integ_Downlink_GroundSender.Tests
             {
                 link.AddToQueue(testQueue.Dequeue());
             }
+
+            await Task.Delay(2000);
 
             //Assert
             Assert.IsTrue(link.ReadytoTransmit(ground));

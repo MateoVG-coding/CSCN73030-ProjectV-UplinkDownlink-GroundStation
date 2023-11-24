@@ -18,9 +18,14 @@ public class Uplink
         senderSpace = new SpaceSender(SpaceAddress + SpaceEndPoint, ref payloadQueue, ref bufferLock);
     }
 
-    private bool ReadytoTransmit(ref SpaceSender sender)
+    public bool ReadytoTransmit(ref SpaceSender sender)
     {
-        return senderSpace.TransmissionStatus == false;
+        bool status = true;
+
+        if (!sender.TransmissionStatus)
+            status = false;
+
+        return status;
     }
 
     public bool AddToQueue(String payload)
