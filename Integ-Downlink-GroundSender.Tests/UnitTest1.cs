@@ -51,8 +51,8 @@ namespace Integ_Downlink_GroundSender.Tests
             {
                 link.AddToQueue(testQueue.Dequeue());
             }
-
-            Thread.Sleep(3000);
+            while (!ground.IsBufferEmpty());
+            Thread.Sleep(2000);
             //Assert
             Assert.IsTrue(link.ReadytoTransmit(ground)); 
             //removed breakpoint - release passing debug was failing.
