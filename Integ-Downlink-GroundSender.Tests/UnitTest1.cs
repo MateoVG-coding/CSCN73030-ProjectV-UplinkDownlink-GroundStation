@@ -52,7 +52,7 @@ namespace Integ_Downlink_GroundSender.Tests
                 link.AddToQueue(testQueue.Dequeue());
             }
 
-            await Task.Delay(2000);
+            while (!link.ReadytoTransmit(ground)) ;
 
             //Assert
             Assert.IsTrue(link.ReadytoTransmit(ground));
