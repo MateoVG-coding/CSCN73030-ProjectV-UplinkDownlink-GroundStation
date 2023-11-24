@@ -30,7 +30,7 @@ public class Uplink
 
     public bool AddToQueue(String payload)
     {
-        if (payloadQueue.Count >= QUEUESIZE)
+           if (payloadQueue.Count >= QUEUESIZE)
             return false;
         bufferLock.WaitOne();
         payloadQueue.Enqueue(payload);
