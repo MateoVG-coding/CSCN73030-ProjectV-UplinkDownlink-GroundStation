@@ -51,11 +51,11 @@ namespace Integ_Downlink_GroundSender.Tests
             {
                 link.AddToQueue(testQueue.Dequeue());
             }
-
             while (!ground.IsBufferEmpty());
             Thread.Sleep(2000);
             //Assert
-            Assert.IsTrue(link.ReadytoTransmit(ground));
+            Assert.IsTrue(link.ReadytoTransmit(ground)); 
+            //change to push
         }
     }
 }
