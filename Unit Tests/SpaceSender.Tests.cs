@@ -64,7 +64,7 @@ namespace Unit_Tests
             Assert.IsFalse(sender.IsRunning_Ping());
 
             sender.SendPing();
-
+            Thread.Sleep(2000);
             Assert.IsTrue(sender.IsRunning_Ping());
         }
     }

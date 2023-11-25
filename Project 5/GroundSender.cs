@@ -93,11 +93,13 @@ public class GroundSender
 
                 if (addressOfDestination.Equals(targetURI.GetLeftPart(UriPartial.Authority).ToString()))
                 {
-                    bufferLock.WaitOne();
+                   
 
                     try
                     {
+                        bufferLock.WaitOne();
                         nextToSend = transmissionQueue.Dequeue();
+                        bufferLock.ReleaseMutex();
                         content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
                         response = await clientTarget.PostAsync(targetURI.PathAndQuery, content);
                     }
@@ -108,14 +110,16 @@ public class GroundSender
                     catch (HttpRequestException ex)
                     { return; }
 
-                    bufferLock.ReleaseMutex();
+                    
                 }
                 else
                 {
-                    bufferLock.WaitOne();
+                    
                     try
                     {
+                        bufferLock.WaitOne();
                         nextToSend = transmissionQueue.Dequeue();
+                        bufferLock.ReleaseMutex();
                         content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
                         response = await clientPassthrough.PostAsync(passThroughURI.PathAndQuery, content);
                     }
@@ -126,7 +130,7 @@ public class GroundSender
                     catch (HttpRequestException ex)
                     { return; }
 
-                    bufferLock.ReleaseMutex();
+                    
                 }
             }
 
