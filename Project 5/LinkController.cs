@@ -12,8 +12,8 @@ namespace link
         //link controller data
         private Mutex bandwidthLock = new Mutex();
         private int bandwidth = 35000;
-        private Uplink? uLink;
-        private DownLink? dLink;
+        private Uplink uLink = new Uplink("https://10.144.111.110", "/UD_Ground_Receive");
+        private DownLink dLink = new DownLink("https://10.144.111.63", "/receive", "/C&DH_Receive");
 
         //bandwidth methods
         public void resetBandwidth()
