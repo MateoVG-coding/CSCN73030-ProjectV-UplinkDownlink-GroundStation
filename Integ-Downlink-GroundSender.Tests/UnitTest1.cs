@@ -36,6 +36,7 @@ namespace Integ_Downlink_GroundSender.Tests
             String fakeAddress = "https://httpbin.org";
             String fakeEndpointGround = "/post";
             String fakeEndPointPassthrough = "/post";
+            bool test_status = false;
 
             Queue<String> testQueue = GroundSender_Stubs.GetFakedTransmissionQuueue();
             Mutex bufferlock = new Mutex();
@@ -51,9 +52,11 @@ namespace Integ_Downlink_GroundSender.Tests
             {
                 link.AddToQueue(testQueue.Dequeue());
             }
+            Thread.Sleep(2000);
+            test_status = link.ReadytoTransmit(ground);
 
             //Assert
-            Assert.IsTrue(link.ReadytoTransmit(ground)); 
+            Assert.AreEqual(true, test_status);
             //removed breakpoint - release passing debug was failing.
         }
     }
