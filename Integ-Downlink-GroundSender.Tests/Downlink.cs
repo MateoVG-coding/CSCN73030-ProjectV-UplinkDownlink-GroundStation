@@ -1,32 +1,34 @@
-﻿
-using Project_5;
-using System.Linq.Expressions;
-
-class DownLink
+﻿class DownLink
 {
     private const int QUEUESIZE = 10;
     private Queue<String> payloadQueue;
-    private GroundSender senderPassThrough;
     private GroundSender senderGroundStation;
     private String passThroughEndPoint;
     private String passThroughAddress;
     private String groundStationAddress;
     private String groundStationEndPoint;
     Mutex bufferLock = new Mutex(false);
-    public DownLink(String address, String passThroughEndPoint, String groundStationEndPoint)
+    public DownLink(String address, String groundStationEndPoint, String passThroughEndPoint, ref GroundSender ground)
     {
         payloadQueue = new Queue<String>(QUEUESIZE);
         this.passThroughAddress = address;
         this.passThroughEndPoint = passThroughEndPoint;
         this.groundStationAddress = address;
         this.groundStationEndPoint = groundStationEndPoint;
-        senderGroundStation = new GroundSender(groundStationAddress + groundStationEndPoint, ref payloadQueue, ref bufferLock);
-        senderPassThrough = new GroundSender(passThroughAddress + passThroughEndPoint, ref payloadQueue, ref bufferLock);
+        senderGroundStation = ground;
     }
 
-    private bool ReadytoTransmit(ref GroundSender sender)
+    public bool ReadytoTransmit(params GroundSender[] senders)
     {
-        return Downlink_Stubs.ReadyToTransmit_Stub();
+        bool status = true;
+
+        foreach (GroundSender sender in senders)
+        {
+            if (!sender.transmissionStatus)
+                status = false;
+        }
+
+        return status;
     }
 
     public bool AddToQueue(String payload)
@@ -39,16 +41,19 @@ class DownLink
 
         if (!senderGroundStation.isRunning())
             senderGroundStation.SendTransmission();
-        else if (!senderPassThrough.isRunning())
-            senderPassThrough.SendTransmission();
         else
             return false;
 
         return true;
     }
 
-    public void Clear()
+    public bool Clear()
     {
+        bufferLock.WaitOne();
+        payloadQueue.Clear();
+        bufferLock.ReleaseMutex();
+
+        return payloadQueue.Count == 0;
 
     }
 }

@@ -6,14 +6,13 @@ class DownLink_MadeMockable
 {
     private const int QUEUESIZE = 10;
     private Queue<String> payloadQueue;
-    private GroundSender senderPassThrough;
     private GroundSender senderGroundStation;
     private String passThroughEndPoint;
     private String passThroughAddress;
     private String groundStationAddress;
     private String groundStationEndPoint;
     Mutex bufferLock = new Mutex(false);
-    public DownLink_MadeMockable(String address, String groundStationEndPoint, String passThroughEndPoint, ref GroundSender passthrough, ref GroundSender ground)
+    public DownLink_MadeMockable(String address, String groundStationEndPoint, String passThroughEndPoint, ref GroundSender ground)
     {
         payloadQueue = new Queue<String>(QUEUESIZE);
         this.passThroughAddress = address;
@@ -21,7 +20,6 @@ class DownLink_MadeMockable
         this.groundStationAddress = address;
         this.groundStationEndPoint = groundStationEndPoint;
         senderGroundStation = ground;
-        senderPassThrough = passthrough;
     }
 
     public bool ReadytoTransmit(params GroundSender[] senders)
@@ -47,8 +45,6 @@ class DownLink_MadeMockable
 
         if (!senderGroundStation.isRunning())
             senderGroundStation.SendTransmission();
-        else if (!senderPassThrough.isRunning())
-            senderPassThrough.SendTransmission();
         else
             return false;
 

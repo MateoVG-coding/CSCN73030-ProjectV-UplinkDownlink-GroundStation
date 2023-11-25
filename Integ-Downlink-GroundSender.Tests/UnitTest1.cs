@@ -17,9 +17,8 @@ namespace Integ_Downlink_GroundSender.Tests
 
             Queue<String> testQueue = GroundSender_Stubs.GetFakedTransmissionQuueue();
             Mutex bufferlock = new Mutex();
-            GroundSender ground = new GroundSender(fakeEndpointGround, ref testQueue, ref bufferlock);
-            GroundSender passthrough = new GroundSender(fakeEndPointPassthrough, ref testQueue, ref bufferlock);
-            DownLink_MadeMockable link = new DownLink_MadeMockable(fakeAddress, fakeEndpointGround, fakeEndPointPassthrough, ref ground, ref passthrough);
+            GroundSender ground = new GroundSender(fakeEndpointGround,fakeEndPointPassthrough, ref testQueue, ref bufferlock);
+            DownLink_MadeMockable link = new DownLink_MadeMockable(fakeAddress, fakeEndpointGround, fakeEndPointPassthrough, ref ground);
 
             //Act
             link.AddToQueue("{'path': 'https://httpbin.org/post'}");
@@ -40,9 +39,8 @@ namespace Integ_Downlink_GroundSender.Tests
 
             Queue<String> testQueue = GroundSender_Stubs.GetFakedTransmissionQuueue();
             Mutex bufferlock = new Mutex();
-            GroundSender ground = new GroundSender(fakeAddress + fakeEndpointGround, ref testQueue, ref bufferlock);
-            GroundSender passthrough = new GroundSender(fakeAddress + fakeEndPointPassthrough, ref testQueue, ref bufferlock);
-            DownLink_MadeMockable link = new DownLink_MadeMockable(fakeAddress, fakeEndpointGround, fakeEndPointPassthrough, ref ground, ref passthrough);
+            GroundSender ground = new GroundSender(fakeAddress + fakeEndpointGround, fakeAddress + fakeEndPointPassthrough, ref testQueue, ref bufferlock);
+            DownLink_MadeMockable link = new DownLink_MadeMockable(fakeAddress, fakeEndpointGround, fakeEndPointPassthrough, ref ground);
 
             //Assert
             Assert.IsFalse(link.ReadytoTransmit(ground));

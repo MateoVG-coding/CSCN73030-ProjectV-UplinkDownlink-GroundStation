@@ -7,20 +7,26 @@ using System.Text;
 public class GroundSender
 {
     private Queue<String> transmissionQueue;
-    HttpClient client;
+    HttpClient clientTarget;
+    HttpClient clientPassthrough;
     private Thread? transmissionManager;
     Mutex bufferLock;
     public bool transmissionStatus { get; set; }
     Uri targetURI;
+    Uri passThroughURI;
 
-    public GroundSender(String target, ref Queue<String> payloads, ref Mutex queuelock)
+    public GroundSender(String target, String passthrough, ref Queue<String> payloads, ref Mutex queuelock)
     {
         bufferLock = queuelock;
         transmissionStatus = false;
         transmissionQueue = payloads;
         targetURI = new Uri(target);
-        client = new HttpClient();
-        client.BaseAddress = new Uri(targetURI.GetLeftPart(UriPartial.Authority));
+        clientTarget = new HttpClient();
+        clientTarget.BaseAddress = new Uri(targetURI.GetLeftPart(UriPartial.Authority));
+
+        passThroughURI = new Uri(passthrough);
+        clientPassthrough = new HttpClient();
+        clientPassthrough.BaseAddress = new Uri(passThroughURI.GetLeftPart(UriPartial.Authority));
     }
 
     private String PeekAtAddress()
@@ -92,33 +98,49 @@ public class GroundSender
                     try
                     {
                         nextToSend = transmissionQueue.Dequeue();
+                        content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
+                        response = await clientTarget.PostAsync(targetURI.PathAndQuery, content);
                     }
                     catch (InvalidOperationException ex)
                     {
                         nextToSend = null;
                     }
+                    catch (HttpRequestException ex)
+                    { return; }
+
+                    bufferLock.ReleaseMutex();
+                }
+                else
+                {
+                    bufferLock.WaitOne();
+                    try
+                    {
+                        nextToSend = transmissionQueue.Dequeue();
+                        content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
+                        response = await clientPassthrough.PostAsync(passThroughURI.PathAndQuery, content);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        nextToSend = null;
+                    }
+                    catch (HttpRequestException ex)
+                    { return; }
 
                     bufferLock.ReleaseMutex();
                 }
             }
 
-            if (nextToSend != null)
+            transmissionStatus = true;
+
+            if (response != null)
             {
-                content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
-
-                try
-                {
-                    response = await client.PostAsync(targetURI.PathAndQuery, content);
-
-                    //Http request sends json string that was dequeued
-                    if (response.IsSuccessStatusCode)
-                        transmissionStatus = true;
-                    else
-                        transmissionStatus = false;
-                }
-                catch (HttpRequestException ex)
-                { return; }
+                //Http request sends json string that was dequeued
+                if (response.IsSuccessStatusCode)
+                    transmissionStatus = true;
+                else
+                    transmissionStatus = false;
             }
+
         }
     }
 

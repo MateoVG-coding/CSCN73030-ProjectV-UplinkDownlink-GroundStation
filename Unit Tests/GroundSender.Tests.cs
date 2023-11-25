@@ -17,7 +17,7 @@ namespace Unit_Tests
         {
 
             //Arrange
-            GroundSender sender = new GroundSender(testURL, ref queue, ref bufferlock);
+            GroundSender sender = new GroundSender(testURL, testURL, ref queue, ref bufferlock);
             queue.Enqueue(testJsonString);
 
             //Act
@@ -32,7 +32,7 @@ namespace Unit_Tests
         public void GroundSender_Added_Transmissions_Buffer_Is_Not_Empty()
         {
             //Arrange
-            GroundSender sender = new GroundSender(testURL, ref queue, ref bufferlock);
+            GroundSender sender = new GroundSender(testURL, testURL, ref queue, ref bufferlock);
 
 
             //Act
@@ -44,7 +44,7 @@ namespace Unit_Tests
         public void GroundSender_StartTransmission_Sends_Data_Tranmission_Status_Is_True()
         {
             //Arrange
-            GroundSender sender = new GroundSender(testURL, ref queue, ref bufferlock);
+            GroundSender sender = new GroundSender(testURL, testURL, ref queue, ref bufferlock);
             queue.Enqueue(testJsonString);
 
             //Act
@@ -60,7 +60,7 @@ namespace Unit_Tests
         public void GroundSender_StartTransmission_Sends_Data_Running_Status_Is_True()
         {
             //Arrange
-            GroundSender sender = new GroundSender(testURL, ref queue, ref bufferlock);
+            GroundSender sender = new GroundSender(testURL, testURL, ref queue, ref bufferlock);
             queue.Enqueue(testJsonString);
 
             //Act
@@ -75,7 +75,7 @@ namespace Unit_Tests
         public void GroundSender_SendTransmission_Returns_True_When_Transmissions_Are_Being_Sent()
         {
             //Arrange
-            GroundSender sender = new GroundSender(testURL, ref queue, ref bufferlock);
+            GroundSender sender = new GroundSender(testURL, testURL, ref queue, ref bufferlock);
             queue.Enqueue(testJsonString);
 
             //Act
