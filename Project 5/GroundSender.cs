@@ -93,7 +93,6 @@ public class GroundSender
 
                 if (addressOfDestination.Equals(targetURI.GetLeftPart(UriPartial.Authority).ToString()))
                 {
-                   
 
                     try
                     {
