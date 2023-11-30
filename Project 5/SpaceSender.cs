@@ -170,7 +170,10 @@ public class SpaceSender
 
                     //Http request sends json string that was dequeued
                     if (response.IsSuccessStatusCode)
+                    {
                         TransmissionStatus = true;
+                        Console.WriteLine("Space Sender sent payload and got 200OK");
+                    }
                     else
                         TransmissionStatus = false;
                 }

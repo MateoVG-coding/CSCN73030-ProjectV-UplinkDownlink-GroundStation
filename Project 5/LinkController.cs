@@ -12,8 +12,14 @@ namespace link
         //link controller data
         private Mutex bandwidthLock = new Mutex();
         private int bandwidth = 35000;
-        private Uplink uLink = new Uplink("https://10.144.111.110", "/UD_Ground_Receive");
-        private DownLink dLink = new DownLink("https://10.144.111.63", "/receive", "/C&DH_Receive");
+        private Uplink uLink = new Uplink("https://httpbin.org", "/post");
+        private DownLink dLink = new DownLink("https://httpbin.org", "/post", "/status/200");
+        //https://httpbin.org/post
+
+        /*
+            private Uplink uLink = new Uplink("http://", "/UD_Ground_Receive");
+            private DownLink dLink = new DownLink("http://", "/receive", "/C&DH_Receive");
+         */
 
         //bandwidth methods
         public void resetBandwidth()
@@ -170,9 +176,9 @@ namespace link
                         }
 
                         string payload = reader.ReadToEnd();
-                        logging.log("End of client data:");
-                        logging.log("Client sent: " + payload);
-                        logging.log("End of client data");
+                        logging.log("\nStart of client data:\n");
+                        logging.log("\n" + payload + "\n");
+                        logging.log("\nEnd of client data\n");
                         body.Close();
                         reader.Close();
                         dLink.AddToQueue(payload);

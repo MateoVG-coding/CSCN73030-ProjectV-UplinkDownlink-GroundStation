@@ -96,7 +96,9 @@ public class GroundSender
 
                     try
                     {
+                        Console.WriteLine("Ground Sender attempting non-passthrough to: " + targetURI);
                         bufferLock.WaitOne();
+                        Console.WriteLine("locked out queue while removing one payload");
                         nextToSend = transmissionQueue.Dequeue();
                         bufferLock.ReleaseMutex();
                         content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
@@ -116,7 +118,9 @@ public class GroundSender
                     
                     try
                     {
+                        Console.WriteLine("Ground Sender attempting passthrough to: " + passThroughURI);
                         bufferLock.WaitOne();
+                        Console.WriteLine("locked out queue while removing one payload");
                         nextToSend = transmissionQueue.Dequeue();
                         bufferLock.ReleaseMutex();
                         content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
@@ -139,7 +143,10 @@ public class GroundSender
             {
                 //Http request sends json string that was dequeued
                 if (response.IsSuccessStatusCode)
+                {
                     transmissionStatus = true;
+                    Console.WriteLine("Ground Sender sent payload and got 200OK");
+                }
                 else
                     transmissionStatus = false;
             }
