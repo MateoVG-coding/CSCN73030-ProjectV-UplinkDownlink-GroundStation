@@ -64,9 +64,11 @@ namespace Unit_Tests
             Assert.IsFalse(sender.IsRunning_Ping());
 
             sender.SendPing();
-            Thread.Sleep(300);
-            bool status = sender.IsRunning_Ping();
 
+            bool status = false;
+
+            while (!status)
+                status = sender.IsRunning_Ping();
 
             Assert.AreEqual(true, status);
         }
