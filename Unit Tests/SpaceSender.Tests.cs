@@ -63,14 +63,10 @@ namespace Unit_Tests
             var sender = new SpaceSender(testURL, ref queue, ref bufferlock);
             Assert.IsFalse(sender.IsRunning_Ping());
 
-            sender.SendPing();
-
-            bool status = false;
-
-            while (!status)
-                status = sender.IsRunning_Ping();
-
-            Assert.AreEqual(true, status);
+            for (int i = 0; i < 10; i++)
+                sender.SendPing();
+            
+            Assert.AreEqual(true, sender.IsRunning_Ping());
         }
     }
 }
