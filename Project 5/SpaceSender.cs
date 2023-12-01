@@ -145,40 +145,38 @@ public class SpaceSender
 
                 if (addressOfDestination.Equals(targetURI.GetLeftPart(UriPartial.Authority).ToString()))
                 {
-                    bufferLock.WaitOne();
 
                     try
                     {
+                        Console.WriteLine("SpaceSender attempting communication with: " + targetURI);
+                        bufferLock.WaitOne();
+                        Console.WriteLine("Queue locked while removing one payload");
                         nextToSend = transmissionQueue.Dequeue();
+                        bufferLock.ReleaseMutex();
+                        content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
+                        response = await client.PostAsync(targetURI.PathAndQuery, content);
+
                     }
                     catch (InvalidOperationException ex)
                     {
                         nextToSend = null;
                     }
+                    catch (HttpRequestException ex)
+                    { return; }
 
-                    bufferLock.ReleaseMutex();
                 }
             }
 
-            if (nextToSend != null)
+            if (response != null)
             {
-                content = new StringContent(nextToSend, Encoding.UTF8, "application/json");
-
-                try
+                //Http request sends json string that was dequeued
+                if (response.IsSuccessStatusCode)
                 {
-                    response = await client.PostAsync(targetURI.PathAndQuery, content);
-
-                    //Http request sends json string that was dequeued
-                    if (response.IsSuccessStatusCode)
-                    {
-                        TransmissionStatus = true;
-                        Console.WriteLine("Space Sender sent payload and got 200OK");
-                    }
-                    else
-                        TransmissionStatus = false;
+                    TransmissionStatus = true;
+                    Console.WriteLine("Space Sender sent payload and got 200OK");
                 }
-                catch (HttpRequestException ex)
-                { return; }
+                else
+                    TransmissionStatus = false;
             }
         }
     }
