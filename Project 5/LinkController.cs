@@ -20,6 +20,7 @@ namespace link
             private Uplink uLink = new Uplink("http://", "/UD_Ground_Receive");
             private DownLink dLink = new DownLink("http://", "/receive", "/C&DH_Receive");
          */
+        
 
         //bandwidth methods
         public void resetBandwidth()
@@ -83,7 +84,7 @@ namespace link
         {
             HttpListenerRequest req = context.Request;
             HttpListenerResponse res = context.Response;
-
+            bool pingSttatus = false;
 
             // Jose moved this lol
             string responseString = "";
@@ -104,9 +105,19 @@ namespace link
                             int remainingBandwidth = getBandwidth();
                             logging.log("Client requested status. Remaining Bandwidth: " + remainingBandwidth + "\n");
 
+                            if (!(pingSttatus = uLink.getPingStatus()))
+                                remainingBandwidth = 0;
+
+                            if (!pingSttatus)
+                                resetBandwidth();
+
                             responseString = remainingBandwidth.ToString();
 
-                            res.StatusCode = 200;
+                            if(pingSttatus)
+                                res.StatusCode = 200;
+                            else
+                                res.StatusCode = 503;
+
                             buffer = Encoding.UTF8.GetBytes(responseString);
                         }
                         catch (OutOfBandwidthException ex)
@@ -143,6 +154,8 @@ namespace link
 
 
                         string payload = reader.ReadToEnd();
+                        addBandwidth(payload.Length);
+
                         logging.log("End of client data:");
                         logging.log("Client sent: " + payload);
                         logging.log("End of client data");
@@ -176,6 +189,9 @@ namespace link
                         }
 
                         string payload = reader.ReadToEnd();
+
+                        addBandwidth(payload.Length);
+
                         logging.log("\nStart of client data:\n");
                         logging.log("\n" + payload + "\n");
                         logging.log("\nEnd of client data\n");
