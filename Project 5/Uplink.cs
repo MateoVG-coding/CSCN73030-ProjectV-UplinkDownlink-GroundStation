@@ -44,6 +44,16 @@ public class Uplink
         return true;
     }
 
+    public void startPing()
+    {
+        bool status = senderSpace.SendPing();
+    }
+
+    public bool getPingStatus()
+    {
+        return senderSpace.TransmissionStatus;
+    }
+
     public bool Clear()
     {
         bufferLock.WaitOne();
