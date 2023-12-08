@@ -1,0 +1,301 @@
+{
+  "source_base_path": "/home/runner/work/CSCN73030-ProjectV-UplinkDownlink-GroundStation/CSCN73030-ProjectV-UplinkDownlink-GroundStation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Integ_Downlink_GroundSender.Tests.Downlink_Integration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Integ_Downlink_GroundSender.Tests.Downlink_Integration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Integ_Downlink_GroundSender.Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Integ_Downlink_GroundSender.Tests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Integ_Uplink_SpaceSender.Uplink_Integration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Integ_Uplink_SpaceSender.Uplink_Integration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Integ_Uplink_SpaceSender.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Integ_Uplink_SpaceSender.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Integration_Tests.Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Integration_Tests.Tests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Integration_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Integration_Tests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Integration_Tests_SpaceSender.Tests_SpaceSender.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Integration_Tests_SpaceSender.Tests_SpaceSender.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Integration_Tests_SpaceSender.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Integration_Tests_SpaceSender.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Project_5.Downlink_Stubs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Project_5.Downlink_Stubs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Project_5.GroundSender_Stubs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Project_5.GroundSender_Stubs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Project_5.Stub_SpaceSender.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Project_5.Stub_SpaceSender.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Project_5.Uplink_Stubs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Project_5.Uplink_Stubs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Project_5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Project_5.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Unit_Tests.Downlink.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Unit_Tests.Downlink.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Unit_Tests.GroundSenderTests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Unit_Tests.GroundSenderTests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Unit_Tests.LinkControllerTests.bandwidthTests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Unit_Tests.LinkControllerTests.bandwidthTests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Unit_Tests.LinkControllerTests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Unit_Tests.LinkControllerTests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Unit_Tests.SpaceSenderTests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Unit_Tests.SpaceSenderTests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Unit_Tests.Uplink_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Unit_Tests.Uplink_Tests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Unit_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Unit_Tests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/link.LinkController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/link.LinkController.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/link.OutOfBandwidthException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/link.OutOfBandwidthException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/link.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/link.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/api/toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "docs/api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/articles/intro.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/articles/toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "docs/articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "docs/toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
