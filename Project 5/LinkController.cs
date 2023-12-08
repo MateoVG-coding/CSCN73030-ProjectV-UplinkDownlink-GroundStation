@@ -9,18 +9,33 @@ namespace link
     /// </summary>
     public class LinkController
     {
+
+
         //link controller data
         private Mutex bandwidthLock = new Mutex();
         private int bandwidth = 35000;
-        private Uplink uLink = new Uplink("https://httpbin.org", "/post");
-        private DownLink dLink = new DownLink("https://httpbin.org", "/post", "/status/200");
+        private Uplink uLink;
+        private DownLink dLink;
         //https://httpbin.org/post
 
         /*
             private Uplink uLink = new Uplink("http://", "/UD_Ground_Receive");
             private DownLink dLink = new DownLink("http://", "/receive", "/C&DH_Receive");
          */
-        
+        public LinkController()
+        {
+            string[] addresses = File.ReadAllLines("ServiceIPs.txt");
+
+            //3 is space UDlink
+            string spaceAddr = "http://" + addresses[2].Split(',')[0];
+            uLink = new Uplink(spaceAddr, "/post");
+            logging.log("Uplink initialized with address " + spaceAddr);
+
+            //5 is ground CDH
+            string groundAddr = "http://" + addresses[4].Split(',')[0];
+            dLink = new DownLink(groundAddr, "/post", "/status/200");
+            logging.log("Downlink initialized with address " + groundAddr);
+        }
 
         //bandwidth methods
         public void resetBandwidth()
@@ -30,6 +45,7 @@ namespace link
             bandwidthLock.ReleaseMutex();
         }
         public int getBandwidth()
+
         {
             return bandwidth;
         }
@@ -66,9 +82,9 @@ namespace link
                 listener.Prefixes.Add(endpoint);
             }
             listener.Start();
-            Console.WriteLine(listener.ToString());
+            logging.log("Begin listening for requests");
 
-            while (true)    //REWORK THIS TO BE ABLE TO BE EXITED. ALSO THIS IS UNTESTABLE BECAUSE IT IS INFINITE
+            while (true)
             {
                 //wait and recieve incoming requests.
                 HttpListenerContext context = listener.GetContext();
@@ -247,8 +263,8 @@ static class logging
     {
         StringBuilder sb = new StringBuilder();
         sb.Append(DateTime.Now);
-        sb.Append(" Recieved " + req.RawUrl + " from " + req.RemoteEndPoint + '\n');
-        Console.Write(sb.ToString());
+        sb.Append(" | Recieved " + req.RawUrl + " from " + req.RemoteEndPoint);
+        Console.WriteLine(sb.ToString());
         File.AppendAllText("./logs.txt", sb.ToString());
         sb.Clear();
     }
@@ -256,9 +272,9 @@ static class logging
     public static void log(string msg)
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append(DateTime.Now);
+        sb.Append(DateTime.Now + " | ");
         sb.Append(msg);
-        Console.Write(sb.ToString());
+        Console.WriteLine(sb.ToString());
         File.AppendAllText("./logs.txt", sb.ToString());
     }
 }
